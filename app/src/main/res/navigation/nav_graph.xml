@@ -13,13 +13,35 @@
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            app:destination="@id/AdminCreateCourseFragment" />
     </fragment>
+<!--    <fragment-->
+<!--        android:id="@+id/SecondFragment"-->
+<!--        android:name="com.example.app.SecondFragment"-->
+<!--        android:label="@string/second_fragment_label"-->
+<!--        tools:layout="@layout/fragment_second">-->
+
+<!--        <action-->
+<!--            android:id="@+id/action_SecondFragment_to_FirstFragment"-->
+<!--            app:destination="@id/FirstFragment" />-->
+<!--    </fragment>-->
+
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.app.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/AdminHomeFragment"
+        android:name="com.example.app.admin_home"
+        android:label=""
+        tools:layout="@layout/fragment_admin_home">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AdminCreateCourseFragment"
+        android:name="com.example.app.admin_create_course"
+        android:label=""
+        tools:layout="@layout/fragment_admin_create_course">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
