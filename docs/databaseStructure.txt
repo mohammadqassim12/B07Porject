@@ -1,0 +1,44 @@
+User
+- id 
+- name
+- password
+- boolean type (student or Admin) (ie: isAdmin)
+
+
+Student
+- courses completed (array?)
+- start (when they start university --> academic session)
+
+
+Admin
+
+
+Courses
+- id/Course Code
+- name
+- sessionsOffered
+- preRequisites
+
+
+Example of Database
+
+"studentId": {
+  "name": "Bob",
+  "password": "123abc#$%",
+  "coursesCompleted": [
+    "courseId", "courseId2", "courseId3"
+   ],
+   "startSession": "Fall 2021"
+}
+
+"courseId": {
+     "name": "Intro to Computer Science"
+     "sessionsOffered": ["Fall 2021", "Winter 2021"],
+     "preRequisites": ["courseId1", "courseId2"],
+ }
+  
+  
+ "adminId": {
+   "name": "BobTeacher",
+   "password": "12345"
+ }
