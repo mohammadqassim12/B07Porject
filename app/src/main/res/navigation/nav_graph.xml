@@ -3,26 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/log_in">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.app.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/log_in"
+        android:name="com.example.app.login"
+        android:label="Log In"
+        tools:layout="@layout/login_screen">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_login_to_signup_screen"
+            app:destination="@id/signup_screen" />
+        <action
+            android:id="@+id/action_log_in_to_StudentHomepage"
+            app:destination="@id/StudentHomepage" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.app.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/signup_screen"
+        android:name="com.example.app.signup"
+        android:label="Sign Up"
+        tools:layout="@layout/signup_screen">
+        <action
+            android:id="@+id/action_signup_screen_to_StudentHomepage"
+            app:destination="@id/StudentHomepage" />
+        <action
+            android:id="@+id/action_signup_screen_to_log_in"
+            app:destination="@id/log_in" />
+    </fragment>
+    <fragment
+        android:id="@+id/StudentHomepage"
+        android:name="com.example.app.StudentHomepage"
+        android:label="Student Homepage"
+        tools:layout="@layout/fragment_student_homepage">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            app:destination="@id/GenerateTimeline" />
+    </fragment>
+    <fragment
+        android:id="@+id/GenerateTimeline"
+        android:name="com.example.app.GenerateTimeline"
+        android:label="Generate Timeline"
+        tools:layout="@layout/fragment_generate_timeline">
+
+        <action
+            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/log_in" />
     </fragment>
 </navigation>

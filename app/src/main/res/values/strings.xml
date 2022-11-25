@@ -21,4 +21,11 @@
     <string name="sign_up">Sign Up</string>
     <string name="log_in_text">Log in to your account</string>
 
+    <string name="header">Completed Courses</string>
+    <string name="add_course">Add Course</string>
+    <string name="take_timeline">See Wanted Courses</string>
+ 
+    <string name="want_course">Add Course to Timeline</string>
+    <string name="new_courses">New Courses</string>
+    <string name="generate_timeline">Generate Timeline</string>
 </resources>
