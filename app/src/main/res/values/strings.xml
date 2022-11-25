@@ -20,5 +20,6 @@
     <string name="user_id">User ID</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_in_text">Log in to your account</string>
+<!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
 </resources>
