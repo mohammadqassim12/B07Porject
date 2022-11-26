@@ -20,12 +20,16 @@
     <string name="user_id">User ID</string>
     <string name="sign_up">Sign Up</string>
     <string name="log_in_text">Log in to your account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_generate_timeline">generate_timeline</string>
+    <!--    <string name="hello_blank_fragment">Hello blank fragment</string>-->
 
     <string name="header">Completed Courses</string>
-    <string name="add_course">Add Course</string>
-    <string name="take_timeline">See Wanted Courses</string>
- 
+    <string name="add_course">Add Completed Course</string>
+    <string name="make_timeline">Find Courses to Generate Timeline</string>
+
     <string name="want_course">Add Course to Timeline</string>
-    <string name="new_courses">New Courses</string>
+    <string name="new_courses">New Courses to Take</string>
     <string name="generate_timeline">Generate Timeline</string>
 </resources>
