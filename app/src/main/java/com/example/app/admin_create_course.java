@@ -1,15 +1,22 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.app.databinding.FragmentAdminCreateCourseBinding;
 import com.example.app.databinding.FragmentAdminHomeBinding;
@@ -17,92 +24,115 @@ import com.example.app.databinding.FragmentAdminHomeBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link admin_create_course#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class admin_create_course extends Fragment {
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class admin_create_course extends AppCompatActivity {
+
+//    // TODO: Rename parameter arguments, choose names that match
+//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+//    private static final String ARG_PARAM1 = "param1";
+//    private static final String ARG_PARAM2 = "param2";
     private FragmentAdminCreateCourseBinding binding;
+//    setContentView(R.layout.adm);
 
+    private TextView submitCourse;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+//
+//    // TODO: Rename and change types of parameters
+//    private String mParam1;
+//    private String mParam2;
 
     public admin_create_course() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment admin_create_course.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static admin_create_course newInstance(String param1, String param2) {
 
-        admin_create_course fragment = new admin_create_course();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    public List<String> setPrerequisites(String s){
+        return Arrays.asList(s.split(","));
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-
-//        submitButton = (Button)findViewById(R.id.submitCourse);
-//        submitButton.setOnClickListener
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_admin_create_course, container, false);
+        setContentView(R.layout.fragment_admin_create_course);
+//        if (getArguments() != null) {
+//            mParam1 = getArguments().getString(ARG_PARAM1);
+//            mParam2 = getArguments().getString(ARG_PARAM2);
+//        }
 
 
-        binding = FragmentAdminCreateCourseBinding.inflate(inflater, container, false);
-        return binding.getRoot();
-    }
+        Spinner spinner = (Spinner) findViewById(R.id.sessionsOfferedSpinner);
+        //creating array adapter
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.sessions_offered, android.R.layout.simple_spinner_item);
+        //layout
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
 
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+        submitCourse = (TextView) findViewById(R.id.submit_course);
 
-        binding.submitCourse.setOnClickListener(new View.OnClickListener() {
+        submitCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference courses = database.getReference("Course Database");
-                String courseNameInput = binding.courseNameInput.getText().toString();
+                DatabaseReference courses = database.getReference();
+//                String courseNameInput = binding.courseNameInput.getText().toString();
 
-                DatabaseReference prerequisites = database.getReference("");
-                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
+                String courseNameInput = ((EditText) findViewById(R.id.courseNameInput)).getText().toString();
+
+//                DatabaseReference prerequisites = database.getReference("");
+//                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
+                String coursePrerequisiteInput = ((EditText) findViewById(R.id.prerequisitesInput)).getText().toString();
+                List<String> preList = setPrerequisites(coursePrerequisiteInput);
+                //getting value from spinner
+                String sessionInput = spinner.getSelectedItem().toString();
 
 
-                courses.setValue(courseNameInput);
+                courses.child("Courses").child(courseNameInput).child("prerequisites").setValue(preList);
+                courses.child("Courses").child(courseNameInput).child("sessionOffered").setValue(sessionInput);
 
-                courses.child("prerequisites").setValue(coursePrerequisiteInput);
-
-                NavHostFragment.findNavController(admin_create_course.this)
-                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+                startActivity(new Intent(admin_create_course.this, admin_home.class));
             }
         });
     }
+
+////    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        // Inflate the layout for this fragment
+////        return inflater.inflate(R.layout.fragment_admin_create_course, container, false);
+//
+//
+//        binding = FragmentAdminCreateCourseBinding.inflate(inflater, container, false);
+//        return binding.getRoot();
+//    }
+
+//    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+////        super.onViewCreated(view, savedInstanceState);
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//
+////        binding.submitCourse.setOnClickListener(new View.OnClickListener() {
+////            @Override
+////            public void onClick(View view) {
+////                DatabaseReference courses = database.getReference("Course Database");
+////                String courseNameInput = binding.courseNameInput.getText().toString();
+////
+////                DatabaseReference prerequisites = database.getReference("");
+////                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
+////
+////
+////                courses.setValue(courseNameInput);
+////
+////                courses.child("prerequisites").setValue(coursePrerequisiteInput);
+////
+//////                NavHostFragment.findNavController(admin_create_course.this)
+//////                        .navigate(R.id.action_SecondFragment_to_FirstFragment);
+////            }
+////        });
+//    }
 }

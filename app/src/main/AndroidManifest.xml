@@ -30,6 +30,13 @@
         <activity android:name=".signup"
             android:label="Preference">
         </activity>
+        <activity android:name=".admin_create_course"
+            android:label="Create Course"
+            android:exported="true">
+        </activity>
+        <activity android:name=".admin_home"
+            android:label="Home">
+        </activity>
     </application>
 
 </manifest>

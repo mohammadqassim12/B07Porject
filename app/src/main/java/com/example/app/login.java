@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 public class login extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class login extends AppCompatActivity {
         signup_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(login.this, signup.class));
+                startActivity(new Intent(login.this, admin_create_course.class));
             }
         });
     }
