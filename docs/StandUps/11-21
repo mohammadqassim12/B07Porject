@@ -1,42 +1,61 @@
-Name: Arina
-What have you done since yesterday?
-
-What are you planning on doing today?
-
-Any impediments or stumbling blocks?
-
-
-
 Name: Casper
+
 What have you done since yesterday?
+	Set up the Jira workflow page, set up the GitHub page, and added everyone to the project
 
 What are you planning on doing today?
+	Designing the general structure of the app and getting used to Firebase/Android Studio/Java logic
 
 Any impediments or stumbling blocks?
+	None
 
+Name: Arina Azmi
 
-
-Name: Claire
 What have you done since yesterday?
+	Looked into the project requirements and select a task to do
 
 What are you planning on doing today?
+	do research on how to implememt login in Android Studio
 
 Any impediments or stumbling blocks?
+	Not as of the moment.
+  
+  Name: Clare
 
-
-
-Name: Mohammed
 What have you done since yesterday?
+	- looked into the project and its requirements
+	- chose to work on user story 2: As a student, I want to view the list of courses I have taken and 
+	add to this list so that I can keep track of all the courses I have taken. 
 
 What are you planning on doing today?
+	- research on databases, implementation and retrieval
+	- begin designing to synchronize data between database and application
 
 Any impediments or stumbling blocks?
+	- not at the moment
+  
+  Name: Mohammad Al-Qasem
 
-
-
-Name: Rachel
 What have you done since yesterday?
+	- Looked into the rubric of the assignment
+	- Started planning out the project
+	- Had the first standup meeting with the team
+	- Got assigned some specific tasks for the project
 
 What are you planning on doing today?
+	- I will be creating the base project and uploading to git hub
+	_ I will be researching more about the login screen and how to create and add login data to 	the database
 
 Any impediments or stumbling blocks?
+	- Not for the moment
+  
+  Name: Rachel
+
+What have you done since yesterday?
+	- Deciding to do admin data
+
+What are you planning on doing today?
+	- Research on data implementation and retrieving
+
+Any impediments or stumbling blocks?
+	- 
