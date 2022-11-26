@@ -1,42 +1,60 @@
-Name: Arina
-What have you done since yesterday?
-
-What are you planning on doing today?
-
-Any impediments or stumbling blocks?
-
-
-
 Name: Casper
+
 What have you done since yesterday?
+	Started planning the design and creating user stories
 
 What are you planning on doing today?
+	Not planning on working on the project today
 
 Any impediments or stumbling blocks?
+	Term Tests
 
+Name: Arina
 
-
-Name: Claire
 What have you done since yesterday?
+	Worked on login module
 
 What are you planning on doing today?
+	debug the code so it runs
 
 Any impediments or stumbling blocks?
+	code is not compatible with other android studios
+  
+  Name: Clare
 
-
-
-Name: Mohammed
 What have you done since yesterday?
+	- created Firebase project, connected to app on Android Studio
+	- begun design for layout of fragments related to user story 2
 
 What are you planning on doing today?
+	- finish layout designs
+	- complete design of database, particularly the application of key/value pairs for the project
+	- begin implmenting layout designs into Android Studio
 
 Any impediments or stumbling blocks?
+	- none at the moment
+  
+  Name: 
 
-
-
-Name: Rachel
 What have you done since yesterday?
+	- Put points here ...
 
 What are you planning on doing today?
+	- Put points here ...
 
 Any impediments or stumbling blocks?
+	- Put points here ...
+  
+  Name: Rachel
+
+What have you done since yesterday?
+	- Designed basic admin UI prototype
+	- researched firebase functionality (read/write)
+	for admin functionalities
+
+What are you planning on doing today?
+	- debug errors
+	- research database design strategies/patterns
+
+Any impediments or stumbling blocks?
+	- running into run/edit configuration errors
