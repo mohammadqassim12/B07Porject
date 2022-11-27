@@ -35,6 +35,10 @@ public class admin_home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_admin_home);
         RecyclerView rvCourses = (RecyclerView) findViewById(R.id.coursesRecycler);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+
+
+
 
 
         createCourseButton = (TextView) findViewById(R.id.createCoursePage);
@@ -64,7 +68,10 @@ public class admin_home extends AppCompatActivity {
                 }
 
                 courseAdapter adapter = new courseAdapter(courses);
-//                rvCourses.setAdapter(adapter);
+                rvCourses.setAdapter(adapter);
+                rvCourses.setLayoutManager(llm);
+
+
 //                rvCourses.setLayoutManager(new LinearLayoutManager(this));
 
 //                                    Log.d("testing", adapter;

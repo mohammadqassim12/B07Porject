@@ -26,7 +26,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
             super(view);
             // Define click listener for the ViewHolder's View
 
-            textView = (TextView) view.findViewById(R.id.textView);
+            textView = (TextView) view.findViewById(R.id.course_name);
         }
 
         public TextView getTextView() {
@@ -49,7 +49,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view, which defines the UI of the list item
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.fragment_admin_home, viewGroup, false);
+                .inflate(R.layout.course_item, viewGroup, false);
 
         return new ViewHolder(view);
     }
