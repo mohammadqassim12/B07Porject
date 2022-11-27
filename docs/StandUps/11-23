@@ -41,7 +41,10 @@ Any impediments or stumbling blocks?
 
 Name: Rachel
 What have you done since yesterday?
+- designed database, make admin ui 
 
 What are you planning on doing today?
+- complete UI, start to connect to firebase
 
 Any impediments or stumbling blocks?
+- refactoring code to work with merge updates
