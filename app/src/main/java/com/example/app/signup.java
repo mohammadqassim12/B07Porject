@@ -42,9 +42,9 @@ public class signup extends AppCompatActivity {
                 EditText confirmation = findViewById(R.id.editTextTextPersonName5);
                 String ID = ID_num_in.getText().toString();
                 boolean acceptable_ID = ID.charAt(0) == 'a' || ID.charAt(0) == 's';
-                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database");
+                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database" + ID);
                 DatabaseReference User_Node = User_Data.child(ID);
-                User_Data.addListenerForSingleValueEvent(new ValueEventListener() {
+                User_Node.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (!(dataSnapshot.exists())) {
@@ -54,10 +54,10 @@ public class signup extends AppCompatActivity {
                                 User_Node.child("ID").setValue(ID);
                                 startActivity(new Intent(signup.this, login.class));
                             } else if (!acceptable_ID) {
-                                Snackbar mySnackbar = Snackbar.make(v, "Invalid ID. ID must begin with 'a' (for admins) or 's' (For students)", 5000);
+                                Snackbar mySnackbar = Snackbar.make(v, "Invalid ID. ID must begin with 'a' (For admins) or 's' (For students)", 5000);
                                 mySnackbar.show();
                             } else {
-                                Snackbar mySnackbar = Snackbar.make(v, "Confirm Password Does Not Match Password", 2000);
+                                Snackbar mySnackbar = Snackbar.make(v, "Passwords Do Not Match", 2000);
                                 mySnackbar.show();
                             }
                         } else {
@@ -65,7 +65,6 @@ public class signup extends AppCompatActivity {
                             mySnackbar.show();
                         }
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
                     }
