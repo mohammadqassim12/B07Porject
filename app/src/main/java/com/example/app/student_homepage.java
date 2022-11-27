@@ -3,9 +3,11 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +18,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -58,18 +64,13 @@ public class student_homepage extends AppCompatActivity {
         return fragment;
     }
 
-    private Button confirm_add;
-    private TextView add_course;
-    private Button make_timeline;
-    private DatabaseReference FireBaseReference;
+    private ArrayList<String> comp_courses;
+    private TextView confirm_course;
+    private TextView make_timeline_click;
 
     public student_homepage() {
         // Required empty public constructor
     }
-
-   /* public List<String> setPrerequisites(String s){
-        return Arrays.asList(s.split(","));
-    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,28 +79,37 @@ public class student_homepage extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
-        add_course = (TextView) findViewById(R.id.add_comp_course);
-
-        add_course.setOnClickListener(new View.OnClickListener() {
+        confirm_course = (TextView)findViewById(R.id.confirm_add);
+        confirm_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference comp_courses = database.getReference();
-//                String courseNameInput = binding.courseNameInput.getText().toString();
+                DatabaseReference user_database = database.getReference();
+
+                //retrieve arraylist in firebase here
 
                 String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
+                comp_courses.add(comp_course_input);
+                user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)").setValue(comp_courses);
+            }
+        });
 
-                comp_courses.child("User Database").child("Bob (test)").child("Completed Courses (test)").setValue(comp_course_input);
+
+
+
+        make_timeline_click = (TextView) findViewById(R.id.make_timeline);
+        make_timeline_click.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view1) {
                 startActivity(new Intent(student_homepage.this, generate_timeline.class));
             }
         });
     }
 
-
-    //@Override
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_student_homepage, container, false);
-    }
+    }*/
 }
 
