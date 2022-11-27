@@ -64,7 +64,7 @@ public class student_homepage extends AppCompatActivity {
         return fragment;
     }
 
-    private ArrayList<String> comp_courses;
+    private TextView add_comp_course;
     private TextView confirm_course;
     private TextView make_timeline_click;
 
@@ -79,6 +79,7 @@ public class student_homepage extends AppCompatActivity {
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+        add_comp_course = (TextView)findViewById(R.id.add_comp_course);
         confirm_course = (TextView)findViewById(R.id.confirm_add);
         confirm_course.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,8 +89,8 @@ public class student_homepage extends AppCompatActivity {
                 //retrieve arraylist in firebase here
 
                 String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
-                comp_courses.add(comp_course_input);
-                user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)").setValue(comp_courses);
+                user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)").child(comp_course_input).setValue(true);
+                add_comp_course.setText("");
             }
         });
 
