@@ -35,7 +35,7 @@ public class admin_create_course extends AppCompatActivity {
 //    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 //    private static final String ARG_PARAM1 = "param1";
 //    private static final String ARG_PARAM2 = "param2";
-    private FragmentAdminCreateCourseBinding binding;
+//    private FragmentAdminCreateCourseBinding binding;
 //    setContentView(R.layout.adm);
 
     private TextView submitCourse;
@@ -48,8 +48,6 @@ public class admin_create_course extends AppCompatActivity {
     public admin_create_course() {
         // Required empty public constructor
     }
-
-
 
     public List<String> setPrerequisites(String s){
         return Arrays.asList(s.split(","));
