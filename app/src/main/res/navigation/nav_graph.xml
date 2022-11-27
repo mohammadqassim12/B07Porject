@@ -12,42 +12,27 @@
         tools:layout="@layout/login_screen">
 
         <action
-            android:id="@+id/action_login_to_signup_screen"
-            app:destination="@id/signup_screen" />
-        <action
-            android:id="@+id/action_log_in_to_StudentHomepage"
-            app:destination="@id/StudentHomepage" />
+            android:id="@+id/action_log_in_to_student_homepage"
+            app:destination="@id/student_homepage" />
     </fragment>
     <fragment
-        android:id="@+id/signup_screen"
-        android:name="com.example.app.signup"
-        android:label="Sign Up"
-        tools:layout="@layout/signup_screen">
-        <action
-            android:id="@+id/action_signup_screen_to_StudentHomepage"
-            app:destination="@id/StudentHomepage" />
-        <action
-            android:id="@+id/action_signup_screen_to_log_in"
-            app:destination="@id/log_in" />
-    </fragment>
-    <fragment
-        android:id="@+id/StudentHomepage"
-        android:name="com.example.app.StudentHomepage"
+        android:id="@+id/student_homepage"
+        android:name="com.example.app.student_homepage"
         android:label="Student Homepage"
         tools:layout="@layout/fragment_student_homepage">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/GenerateTimeline" />
+            android:id="@+id/action_student_homepage_to_generate_timeline"
+            app:destination="@id/generate_timeline" />
     </fragment>
     <fragment
-        android:id="@+id/GenerateTimeline"
-        android:name="com.example.app.GenerateTimeline"
+        android:id="@+id/generate_timeline"
+        android:name="com.example.app.generate_timeline"
         android:label="Generate Timeline"
         tools:layout="@layout/fragment_generate_timeline">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
+            android:id="@+id/action_generate_timeline_to_log_in"
             app:destination="@id/log_in" />
     </fragment>
 </navigation>

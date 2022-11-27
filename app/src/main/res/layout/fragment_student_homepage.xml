@@ -58,8 +58,7 @@
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/add_comp_course"
-            app:layout_constraintVertical_bias="0.0"
-            app:onCllick="confirmAddedCourse=" />
+            app:layout_constraintVertical_bias="0.0" />
 
         <EditText
             android:id="@+id/add_comp_course"
@@ -74,7 +73,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.564"
-            android:autofillHints="" />
+            android:hint="@string/add_comp_course" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>
