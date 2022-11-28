@@ -16,12 +16,16 @@ Any impediments or stumbling blocks?
 
 
 
-Name: Claire
+Name: Clare
 What have you done since yesterday?
+  - connect edit text to firebase, writes completed courses to database
 
 What are you planning on doing today?
+  - have recyclerview display all completed courses in firebase
 
 Any impediments or stumbling blocks?
+  - understand and write adapter for recyclerview
+  - quiz in another course
 
 
 
