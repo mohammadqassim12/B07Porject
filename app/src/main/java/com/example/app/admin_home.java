@@ -55,14 +55,16 @@ public class admin_home extends AppCompatActivity {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                courses.clear();
                 for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     String value = childSnapshot.getKey();
 //                    Log.d("testing", value);
                     if(!courses.contains(value)) {
                         courses.add(value);
-                        Log.d("testing", courses.get(i));
-                        i = i +1;
+//                        Log.d("testing", courses.get(i));
+//                        i = i +1;
                     }
+                    Log.d("insideChildren", "child");
 
                 }
 
@@ -82,8 +84,6 @@ public class admin_home extends AppCompatActivity {
 ////                    }
 //
 //                });
-
-
 
 //                rvCourses.setLayoutManager(new LinearLayoutManager(this));
 

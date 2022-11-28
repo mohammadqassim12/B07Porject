@@ -81,7 +81,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
             public void onClick(View view) {
                 myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
                 Log.d("deleteTest", viewHolder.getTextView().getText().toString());
-                notifyDataSetChanged();
+//                notifyDataSetChanged();
             }
 
         });

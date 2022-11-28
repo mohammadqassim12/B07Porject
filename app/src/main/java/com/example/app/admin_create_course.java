@@ -83,6 +83,7 @@ public class admin_create_course extends AppCompatActivity {
 
                 String courseNameInput = ((EditText) findViewById(R.id.courseNameInput)).getText().toString();
 
+
 //                DatabaseReference prerequisites = database.getReference("");
 //                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
                 String coursePrerequisiteInput = ((EditText) findViewById(R.id.prerequisitesInput)).getText().toString();
@@ -90,9 +91,10 @@ public class admin_create_course extends AppCompatActivity {
                 //getting value from spinner
                 String sessionInput = spinner.getSelectedItem().toString();
 
-
-                courses.child("Courses").child(courseNameInput).child("prerequisites").setValue(preList);
-                courses.child("Courses").child(courseNameInput).child("sessionOffered").setValue(sessionInput);
+                if(courseNameInput != "") {
+                    courses.child("Courses").child(courseNameInput).child("prerequisites").setValue(preList);
+                    courses.child("Courses").child(courseNameInput).child("sessionOffered").setValue(sessionInput);
+                }
 
                 startActivity(new Intent(admin_create_course.this, admin_home.class));
             }
