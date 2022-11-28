@@ -67,7 +67,7 @@ public class student_homepage extends AppCompatActivity {
     private RecyclerView recycler_view;
     comp_course_adapter myAdapter;
     ArrayList<String> list = new ArrayList<String>();
-    Button deleteCourse;
+    private TextView deleteCourse;
 
     public student_homepage() {
         // Required empty public constructor
@@ -100,6 +100,14 @@ public class student_homepage extends AppCompatActivity {
                 myAdapter = new comp_course_adapter(list);
                 recycler_view.setAdapter(myAdapter);
                 recycler_view.setLayoutManager(llm);
+
+                deleteCourse = (TextView) findViewById(R.id.deleteCourse);
+                deleteCourse.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        snapshot.getRef().removeValue();
+                    }
+                });
             }
 
             @Override
