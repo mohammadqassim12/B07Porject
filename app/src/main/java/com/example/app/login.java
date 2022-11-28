@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.fragment.NavHostFragment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
@@ -55,11 +56,11 @@ public class login extends AppCompatActivity {
                                                                    {
                                                                        if (Username.charAt(0) == 'a')
                                                                        {
-                                                                           startActivity(new Intent(login.this, UWUWUWUWUWUWUWUWUWUWUWu));
+                                                                           startActivity(new Intent(login.this, admin_home.class));
                                                                        }
                                                                        else
                                                                        {
-                                                                           startActivity(new Intent(login.this, UWUWUWUWUWUWUWUWUWUWUWUWUWUWUWUW));
+                                                                           startActivity(new Intent(login.this, student_homepage.class));
                                                                        }
                                                                    }
                                                                    else {

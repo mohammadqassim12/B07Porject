@@ -27,9 +27,26 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        <activity
-            android:name=".signup"
-            android:label="Preference"></activity>
+        <activity android:name=".signup"
+            android:label="Preference">
+        </activity>
+        <activity android:name=".admin_create_course"
+            android:label="Create Course"
+            android:exported="true">
+        </activity>
+        <activity android:name=".admin_home"
+            android:label="Home">
+        </activity>
+        <activity android:name=".edit_item"
+            android:label="Home">
+        </activity>
+        <activity android:name=".student_homepage"
+            android:label="Student Homepage"
+            android:exported="true">
+        </activity>
+        <activity android:name=".generate_timeline"
+            android:label="Generate Timeline">
+        </activity>
     </application>
 
 </manifest>
