@@ -40,6 +40,13 @@
         <activity android:name=".edit_item"
             android:label="Home">
         </activity>
+        <activity android:name=".student_homepage"
+            android:label="Student Homepage"
+            android:exported="true">
+        </activity>
+        <activity android:name=".generate_timeline"
+            android:label="Generate Timeline">
+        </activity>
     </application>
 
 </manifest>

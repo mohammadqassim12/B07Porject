@@ -20,7 +20,7 @@ public class login extends AppCompatActivity {
         signup_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(login.this, admin_home.class));
+                startActivity(new Intent(login.this, signup.class));
             }
         });
     }
