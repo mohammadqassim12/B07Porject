@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -67,6 +70,10 @@ public class student_homepage extends AppCompatActivity {
     private TextView add_comp_course;
     private TextView confirm_course;
     private TextView make_timeline_click;
+    private RecyclerView recycler_view;
+    comp_course_adapter myAdapter;
+    ArrayList<String> display_courses;
+    int i = 0;
 
     public student_homepage() {
         // Required empty public constructor
@@ -78,6 +85,30 @@ public class student_homepage extends AppCompatActivity {
         setContentView(R.layout.fragment_student_homepage);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+
+        DatabaseReference myRef = database.getReference().child("User Database").child("Bob (test").child("Completed Courses (test)");
+        recycler_view = (RecyclerView) findViewById(R.id.comp_courses);
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot childSnapshot: snapshot.getChildren()) {
+                    String course = childSnapshot.getKey();
+                    display_courses.add(course);
+                    Log.d("testing", display_courses.get(i));
+                    i++;
+                }
+                myAdapter = new comp_course_adapter(display_courses);
+                recycler_view.setAdapter(myAdapter);
+                recycler_view.setLayoutManager(llm);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("testing", "Failed to read value.", error.toException());
+            }
+        });
 
         add_comp_course = (TextView)findViewById(R.id.add_comp_course);
         confirm_course = (TextView)findViewById(R.id.confirm_add);
