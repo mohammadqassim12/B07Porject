@@ -37,6 +37,9 @@
         <activity android:name=".admin_home"
             android:label="Home">
         </activity>
+        <activity android:name=".edit_item"
+            android:label="Home">
+        </activity>
     </application>
 
 </manifest>

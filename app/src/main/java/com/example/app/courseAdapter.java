@@ -1,6 +1,7 @@
 package com.example.app;
 
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +22,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
     private List<String> localDataSet;
     Button deleteButton;
+    Button editButton;
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     DatabaseReference myRef = database.getReference().child("Courses");
@@ -76,12 +78,19 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
         deleteButton = (Button) view.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
-            //
             @Override
             public void onClick(View view) {
                 myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
                 Log.d("deleteTest", viewHolder.getTextView().getText().toString());
-//                notifyDataSetChanged();
+            }
+
+        });
+
+        editButton = (Button) view.findViewById(R.id.edit_button);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(admin_home.class, edit_item.class));
             }
 
         });
