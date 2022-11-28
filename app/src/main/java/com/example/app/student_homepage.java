@@ -1,9 +1,9 @@
 package com.example.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,27 +11,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,17 +59,20 @@ public class student_homepage extends AppCompatActivity {
         return fragment;
     }
 
+
+
     private TextView add_comp_course;
-    private TextView confirm_course;
+    private TextView confirm_course_click;
     private TextView make_timeline_click;
     private RecyclerView recycler_view;
     comp_course_adapter myAdapter;
-    ArrayList<String> display_courses;
-    int i = 0;
+    ArrayList<String> list = new ArrayList<String>();
+    Button deleteCourse;
 
     public student_homepage() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -87,46 +82,42 @@ public class student_homepage extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference user_database = database.getReference();
 
-        recycler_view = (RecyclerView) findViewById(R.id.comp_courses);
+        recycler_view = (RecyclerView) findViewById(R.id.comp_courses_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
-        DatabaseReference myRef = user_database.child("User Database").child("Bob (test)").child("Completed Courses (test)");
+        DatabaseReference myRef = user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)");
         myRef.addValueEventListener(new ValueEventListener() {
+
+            int i = 0;
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(DataSnapshot snapshot) {
                 for(DataSnapshot childSnapshot: snapshot.getChildren()) {
                     String course = childSnapshot.getKey();
-                    display_courses.add(course);
-                    Log.d("testing", display_courses.get(i));
+                    list.add(course);
+                    Log.d("testing", list.get(i));
                     i++;
                 }
-                myAdapter = new comp_course_adapter(display_courses);
+                myAdapter = new comp_course_adapter(list);
                 recycler_view.setAdapter(myAdapter);
                 recycler_view.setLayoutManager(llm);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onCancelled(DatabaseError error) {
                 Log.w("testing", "Failed to read value.", error.toException());
             }
         });
 
         add_comp_course = (TextView)findViewById(R.id.add_comp_course);
-        confirm_course = (TextView)findViewById(R.id.confirm_add);
-        confirm_course.setOnClickListener(new View.OnClickListener() {
+        confirm_course_click = (TextView)findViewById(R.id.confirm_add);
+        confirm_course_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                //retrieve arraylist in firebase here
-
                 String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
                 user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)").child(comp_course_input).setValue(true);
                 add_comp_course.setText("");
             }
         });
-
-
-
 
         make_timeline_click = (TextView) findViewById(R.id.make_timeline);
         make_timeline_click.setOnClickListener(new View.OnClickListener() {

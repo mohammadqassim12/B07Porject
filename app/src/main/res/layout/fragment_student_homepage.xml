@@ -16,7 +16,7 @@
             android:id="@+id/header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="64dp"
+            android:layout_marginTop="56dp"
             android:text="@string/header"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
@@ -24,9 +24,9 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/comp_courses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/comp_courses_rv"
+            android:layout_width="350dp"
+            android:layout_height="260dp"
             android:layout_marginBottom="1dp"
             app:layout_constraintBottom_toTopOf="@+id/add_comp_course"
             app:layout_constraintEnd_toEndOf="parent"
@@ -65,14 +65,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="Add Completed Course"
             android:minHeight="48dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.564"
-            android:hint="Add Completed Course" />
+            app:layout_constraintVertical_bias="0.564" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

@@ -31,11 +31,11 @@
             android:label="Preference">
         </activity>
         <activity android:name=".student_homepage"
-            android:label="Add Completed Course"
+            android:label="Student Homepage"
             android:exported="true">
         </activity>
         <activity android:name=".generate_timeline"
-            android:label="Home">
+            android:label="Generate Timeline">
         </activity>
     </application>
 
