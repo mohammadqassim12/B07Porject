@@ -24,7 +24,7 @@ public class comp_course_adapter extends RecyclerView.Adapter<comp_course_adapte
 
         public courseViewHolder(@NonNull View itemView) {
             super(itemView);
-            comp_course = (TextView) itemView.findViewById(R.id.comp_courses);
+            comp_course = (TextView) itemView.findViewById(R.id.comp_course_item);
         }
 
         public TextView getTextView() {

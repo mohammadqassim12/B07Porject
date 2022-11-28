@@ -85,11 +85,12 @@ public class student_homepage extends AppCompatActivity {
         setContentView(R.layout.fragment_student_homepage);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference user_database = database.getReference();
 
-        DatabaseReference myRef = database.getReference().child("User Database").child("Bob (test").child("Completed Courses (test)");
         recycler_view = (RecyclerView) findViewById(R.id.comp_courses);
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
+        DatabaseReference myRef = user_database.child("User Database").child("Bob (test)").child("Completed Courses (test)");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -115,7 +116,6 @@ public class student_homepage extends AppCompatActivity {
         confirm_course.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatabaseReference user_database = database.getReference();
 
                 //retrieve arraylist in firebase here
 
