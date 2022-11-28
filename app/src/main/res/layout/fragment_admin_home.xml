@@ -24,7 +24,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/coursesRecycler"
-                android:layout_width="121dp"
+                android:layout_width="match_parent"
                 android:layout_height="431dp" />
 
             <!--            <androidx.fragment.app.FragmentContainerView-->

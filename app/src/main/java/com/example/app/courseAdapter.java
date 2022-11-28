@@ -1,19 +1,29 @@
 package com.example.app;
 
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder> {
 
+
     private List<String> localDataSet;
+    Button deleteButton;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference().child("Courses");
 
     /**
      * Provide a reference to the type of views that you are using
@@ -25,7 +35,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
-
             textView = (TextView) view.findViewById(R.id.course_name);
         }
 
@@ -61,6 +70,21 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
         viewHolder.getTextView().setText(localDataSet.get(position));
+
+
+        View view = viewHolder.itemView;
+
+        deleteButton = (Button) view.findViewById(R.id.delete_button);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            //
+            @Override
+            public void onClick(View view) {
+                myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
+                Log.d("deleteTest", viewHolder.getTextView().getText().toString());
+                notifyDataSetChanged();
+            }
+
+        });
     }
 
     // Return the size of your dataset (invoked by the layout manager)

@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 public class admin_home extends AppCompatActivity {
     ArrayList<String> courses = new ArrayList<String>();
     TextView createCourseButton;
+    Button deleteButton;
     int i = 0;
 
 
@@ -38,9 +40,6 @@ public class admin_home extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
 
-
-
-
         createCourseButton = (TextView) findViewById(R.id.createCoursePage);
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +47,6 @@ public class admin_home extends AppCompatActivity {
                 startActivity(new Intent(admin_home.this, admin_create_course.class));
             }
         });
-
-//        Log.d("testFindView");
-
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Courses");
@@ -62,14 +58,31 @@ public class admin_home extends AppCompatActivity {
                 for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
                     String value = childSnapshot.getKey();
 //                    Log.d("testing", value);
-                    courses.add(value);
-                    Log.d("testing", courses.get(i));
-                    i = i +1;
+                    if(!courses.contains(value)) {
+                        courses.add(value);
+                        Log.d("testing", courses.get(i));
+                        i = i +1;
+                    }
+
                 }
+
+                Log.d("onDataChangeTest", "testing");
 
                 courseAdapter adapter = new courseAdapter(courses);
                 rvCourses.setAdapter(adapter);
                 rvCourses.setLayoutManager(llm);
+
+//                deleteButton = (Button) findViewById(R.id.delete_button);
+//                deleteButton.setOnClickListener(new View.OnClickListener() {
+//                    //
+////                    @Override
+////                    public void onClick(View view) {
+////        //                        Log.d("deleteTest", dataSnapshot.getKey());
+////
+////                    }
+//
+//                });
+
 
 
 //                rvCourses.setLayoutManager(new LinearLayoutManager(this));
@@ -86,6 +99,9 @@ public class admin_home extends AppCompatActivity {
                 Log.w("testing", "Failed to read value.", error.toException());
             }
         });
+
+
+
 
 
     }
