@@ -77,13 +77,12 @@ public class student_homepage extends AppCompatActivity {
 
         DatabaseReference myRef = user_database.child("User Database").child("s1").child("Completed Courses");
         myRef.addValueEventListener(new ValueEventListener() {
-
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 list.clear();
-                for(DataSnapshot childSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot childSnapshot : snapshot.getChildren()) {
                     String course = childSnapshot.getKey();
-                    if(!list.contains(course)) {
+                    if (!list.contains(course)) {
                         list.add(course);
                     }
                 }
@@ -98,14 +97,33 @@ public class student_homepage extends AppCompatActivity {
             }
         });
 
-        add_comp_course = (TextView)findViewById(R.id.add_comp_course);
-        confirm_course_click = (TextView)findViewById(R.id.confirm_add);
+        add_comp_course = (TextView) findViewById(R.id.add_comp_course);
+        confirm_course_click = (TextView) findViewById(R.id.confirm_add);
         confirm_course_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
-                user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(true);
-                add_comp_course.setText("");
+                user_database.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
+                        if (!dataSnapshot.child("Courses").child(comp_course_input).exists()) {
+                            Snackbar mySnackbar = Snackbar.make(view, "Course does not exist", 3000);
+                            mySnackbar.show();
+                        }
+                        else if(dataSnapshot.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).exists()) {
+                            Snackbar newSnackbar = Snackbar.make(view, "Course is already in list", 3000);
+                            newSnackbar.show();
+                        }
+                        else {
+                            user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(true);
+                            add_comp_course.setText("");
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                    }
+                });
             }
         });
 
