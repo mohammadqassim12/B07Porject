@@ -1,5 +1,6 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,11 +56,26 @@ public class generate_timeline extends AppCompatActivity {
         return fragment;
     }
 
+    private TextView gen_time;
+    private List<String> inputCourses(String toTake) {
+        return Arrays.asList(toTake.split(","));
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_generate_timeline);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        gen_time = (TextView) findViewById(R.id.generate_timeline);
+        gen_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String coursesToTake = ((EditText) findViewById(R.id.to_take)).getText().toString();
+                List toTake = inputCourses(coursesToTake);
+                startActivity(new Intent(generate_timeline.this, timeline_page.class));
+            }
+        });
     }
 
    // @Override
