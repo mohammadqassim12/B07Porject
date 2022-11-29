@@ -42,7 +42,7 @@ public class signup extends AppCompatActivity {
                 EditText confirmation = findViewById(R.id.editTextTextPersonName5);
                 String ID = ID_num_in.getText().toString();
                 boolean acceptable_ID = ID.charAt(0) == 'a' || ID.charAt(0) == 's';
-                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database" + ID);
+                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database");
                 DatabaseReference User_Node = User_Data.child(ID);
                 User_Node.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -52,6 +52,9 @@ public class signup extends AppCompatActivity {
                                 User_Node.child("name").setValue(first_name_in.getText().toString());
                                 User_Node.child("password").setValue(password_in.getText().toString());
                                 User_Node.child("ID").setValue(ID);
+                                if(ID.charAt(0) == 's') {
+                                    User_Node.child("Completed Courses").setValue(true);
+                                }
                                 startActivity(new Intent(signup.this, login.class));
                             } else if (!acceptable_ID) {
                                 Snackbar mySnackbar = Snackbar.make(v, "Invalid ID. ID must begin with 'a' (For admins) or 's' (For students)", 5000);

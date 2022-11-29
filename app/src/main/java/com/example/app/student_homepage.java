@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,13 +27,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link student_homepage#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class student_homepage extends AppCompatActivity {
 
+    /*
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -41,14 +40,7 @@ public class student_homepage extends AppCompatActivity {
     private String mParam1;
     private String mParam2;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment student_homepage.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static student_homepage newInstance(String param1, String param2) {
         student_homepage fragment = new student_homepage();
@@ -58,8 +50,7 @@ public class student_homepage extends AppCompatActivity {
         //fragment.setArguments(args);
         return fragment;
     }
-
-
+    */
 
     private TextView add_comp_course;
     private TextView confirm_course_click;
@@ -67,7 +58,6 @@ public class student_homepage extends AppCompatActivity {
     private RecyclerView recycler_view;
     comp_course_adapter myAdapter;
     ArrayList<String> list = new ArrayList<String>();
-    private TextView deleteCourse;
 
     public student_homepage() {
         // Required empty public constructor
@@ -85,29 +75,21 @@ public class student_homepage extends AppCompatActivity {
         recycler_view = (RecyclerView) findViewById(R.id.comp_courses_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
-        DatabaseReference myRef = user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)");
+        DatabaseReference myRef = user_database.child("User Database").child("s1").child("Completed Courses");
         myRef.addValueEventListener(new ValueEventListener() {
 
-            int i = 0;
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                list.clear();
                 for(DataSnapshot childSnapshot: snapshot.getChildren()) {
                     String course = childSnapshot.getKey();
-                    list.add(course);
-                    Log.d("testing", list.get(i));
-                    i++;
+                    if(!list.contains(course)) {
+                        list.add(course);
+                    }
                 }
                 myAdapter = new comp_course_adapter(list);
                 recycler_view.setAdapter(myAdapter);
                 recycler_view.setLayoutManager(llm);
-
-                deleteCourse = (TextView) findViewById(R.id.deleteCourse);
-                deleteCourse.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        snapshot.getRef().removeValue();
-                    }
-                });
             }
 
             @Override
@@ -122,7 +104,7 @@ public class student_homepage extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
-                user_database.child("User Database").child("Bob (test)").child("Completed Courses(test)").child(comp_course_input).setValue(true);
+                user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(true);
                 add_comp_course.setText("");
             }
         });
