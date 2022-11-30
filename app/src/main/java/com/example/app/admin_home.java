@@ -56,18 +56,17 @@ public class admin_home extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 courses.clear();
                 for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    String value = childSnapshot.child("Course Code").getValue().toString();
-                    Log.d("testing", value);
+                    String value = childSnapshot.getKey();
                     if(!courses.contains(value)) {
                         courses.add(value);
 //                        Log.d("testing", courses.get(i));
 //                        i = i +1;
                     }
-                    Log.d("insideChildren", "child");
+//                    Log.d("insideChildren", "child");
 
                 }
 
-                Log.d("onDataChangeTest", "testing");
+//                Log.d("onDataChangeTest", "testing");
 
                 courseAdapter adapter = new courseAdapter(courses, admin_home.this);
                 rvCourses.setAdapter(adapter);
