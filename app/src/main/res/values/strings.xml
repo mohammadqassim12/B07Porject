@@ -37,4 +37,5 @@
     <string name="new_courses">New Courses to Take</string>
     <string name="generate_timeline">Generate Timeline</string>
     <string name="confirm_add">Add Completed Course to List</string>
+    <string name="logout">Log Out</string>
 </resources>

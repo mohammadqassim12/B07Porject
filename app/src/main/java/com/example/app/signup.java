@@ -42,7 +42,7 @@ public class signup extends AppCompatActivity {
                 EditText confirmation = findViewById(R.id.editTextTextPersonName5);
                 String ID = ID_num_in.getText().toString();
                 boolean acceptable_ID = ID.charAt(0) == 'a' || ID.charAt(0) == 's';
-                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database" + ID);
+                DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database");
                 DatabaseReference User_Node = User_Data.child(ID);
                 User_Node.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

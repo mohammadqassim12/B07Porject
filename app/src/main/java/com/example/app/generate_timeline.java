@@ -72,7 +72,9 @@ public class generate_timeline extends AppCompatActivity {
             public void onClick(View view) {
                 String coursesToTake = ((EditText) findViewById(R.id.to_take)).getText().toString();
                 List toTake = inputCourses(coursesToTake);
-                startActivity(new Intent(generate_timeline.this, student_homepage.class));
+                /*Intent intent = new Intent(generate_timeline.this, student_homepage.class);
+                intent.putExtra("toTake", toTake);
+                startActivity(intent);*/
             }
         });
     }

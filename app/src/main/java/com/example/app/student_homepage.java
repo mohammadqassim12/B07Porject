@@ -38,12 +38,9 @@ public class student_homepage extends AppCompatActivity {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
-
     // TODO: Rename and change types and number of parameters
     public static student_homepage newInstance(String param1, String param2) {
         student_homepage fragment = new student_homepage();
@@ -61,7 +58,15 @@ public class student_homepage extends AppCompatActivity {
     private TextView logoutClick;
     private RecyclerView recycler_view;
     comp_course_adapter myAdapter;
-    Map<String, String> course_dictionary;
+    String studentID;
+    ArrayList<String> courseCodeList = new ArrayList<>();
+
+    public void getIncomingIntent() {
+        if (getIntent().hasExtra("studentID")) {
+            studentID = getIntent().getStringExtra("studentID");
+        }
+    }
+
 
     public student_homepage() {
         // Required empty public constructor
@@ -73,28 +78,24 @@ public class student_homepage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_student_homepage);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference user_database = database.getReference();
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         recycler_view = (RecyclerView) findViewById(R.id.comp_courses_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
-        DatabaseReference myRef = user_database.child("User Database").child("s1").child("Completed Courses");
+        getIncomingIntent();
+        DatabaseReference myRef = database.child("User Database").child(studentID).child("Completed Courses");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                course_dictionary.clear();
-                int i = 0;
+                courseCodeList.clear();
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    String code = childSnapshot.getKey();
-                    if (!course_dictionary.containsKey(code)) {
-                        String course = user_database.child("Courses").child("course" + i).child("Course Code").child(code).toString();
-                        course_dictionary.put(code, course);
-                        i++;
+                    String courseCode = childSnapshot.getKey();
+                    if (!courseCodeList.contains(courseCode)) {
+                        courseCodeList.add(courseCode);
                     }
                 }
-                ArrayList<String> list = new ArrayList<String>(course_dictionary.keySet());
-                myAdapter = new comp_course_adapter(list);
+                myAdapter = new comp_course_adapter(courseCodeList, studentID);
                 recycler_view.setAdapter(myAdapter);
                 recycler_view.setLayoutManager(llm);
             }
@@ -110,7 +111,7 @@ public class student_homepage extends AppCompatActivity {
         confirm_course_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                user_database.addListenerForSingleValueEvent(new ValueEventListener() {
+                database.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         String comp_course_input = ((EditText) findViewById(R.id.add_comp_course)).getText().toString();
@@ -118,22 +119,15 @@ public class student_homepage extends AppCompatActivity {
                             Snackbar mySnackbar = Snackbar.make(view, "Course does not exist", 3000);
                             mySnackbar.show();
                         }
-                        else if(dataSnapshot.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).exists()) {
+                        else if(dataSnapshot.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).exists()) {
                             Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 3000);
                             newSnackbar.show();
                         }
                         else {
-                            String key = "";
-                            int i = 0;
-                            while(!(dataSnapshot.child("course" + i).child("Course Code").toString()).equals(key)) {
-                                key = user_database.child("Courses").child("course" + i).toString();
-                                i++;
-                            }
-                            user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(key);
+                            database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
                             add_comp_course.setText("");
                         }
                     }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }

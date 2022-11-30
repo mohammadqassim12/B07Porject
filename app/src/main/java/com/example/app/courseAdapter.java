@@ -1,6 +1,7 @@
 package com.example.app;
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -22,7 +23,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
 
     private List<String> localDataSet;
-    private List<String> idDataSet;
     private Context myContext;
     private String value;
     Button deleteButton;
@@ -56,9 +56,8 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public courseAdapter(ArrayList<String> dataSet, ArrayList<String> courseIds, Context context) {
+    public courseAdapter(ArrayList<String> dataSet, Context context) {
         localDataSet = dataSet;
-        idDataSet = courseIds;
         myContext = context;
     }
 
@@ -87,9 +86,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
-                myRef.child(idDataSet.get(position)).removeValue();
-                Log.d("deleteTest", idDataSet.get(position));
+//              myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
+                myRef.child(localDataSet.get(position)).removeValue();
+                Log.d("deleteTest", localDataSet.get(position));
             }
 
         });
