@@ -27,10 +27,10 @@ import java.util.ArrayList;
 
 public class admin_home extends AppCompatActivity {
     ArrayList<String> courses = new ArrayList<String>();
+    ArrayList<String> courseIds = new ArrayList<String>();
     TextView createCourseButton;
     Button deleteButton;
     int i = 0;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class admin_home extends AppCompatActivity {
         createCourseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(admin_home.this, admin_create_course.class));
+                startActivity(new Intent(new Intent(admin_home.this, admin_create_course.class)));
             }
         });
 
@@ -56,11 +56,14 @@ public class admin_home extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 courses.clear();
+                courseIds.clear();
                 for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                    String value = childSnapshot.getKey();
-//                    Log.d("testing", value);
+                    String value = childSnapshot.child("Course Code").getValue().toString();
+                    String courseId = childSnapshot.getKey().toString();
+                    Log.d("testing", value);
                     if(!courses.contains(value)) {
                         courses.add(value);
+                        courseIds.add(courseId);
 //                        Log.d("testing", courses.get(i));
 //                        i = i +1;
                     }
@@ -70,7 +73,7 @@ public class admin_home extends AppCompatActivity {
 
                 Log.d("onDataChangeTest", "testing");
 
-                courseAdapter adapter = new courseAdapter(courses);
+                courseAdapter adapter = new courseAdapter(courses, courseIds, admin_home.this);
                 rvCourses.setAdapter(adapter);
                 rvCourses.setLayoutManager(llm);
 

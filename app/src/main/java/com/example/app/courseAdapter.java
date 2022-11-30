@@ -1,6 +1,7 @@
 package com.example.app;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
 
     private List<String> localDataSet;
+    private List<String> idDataSet;
+    private Context myContext;
+    private String value;
     Button deleteButton;
     Button editButton;
 
@@ -36,6 +40,7 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
         public ViewHolder(View view) {
             super(view);
+
             // Define click listener for the ViewHolder's View
             textView = (TextView) view.findViewById(R.id.course_name);
         }
@@ -51,8 +56,10 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public courseAdapter(ArrayList<String> dataSet) {
+    public courseAdapter(ArrayList<String> dataSet, ArrayList<String> courseIds, Context context) {
         localDataSet = dataSet;
+        idDataSet = courseIds;
+        myContext = context;
     }
 
     // Create new views (invoked by the layout manager)
@@ -80,8 +87,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
-                Log.d("deleteTest", viewHolder.getTextView().getText().toString());
+//                myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
+                myRef.child(idDataSet.get(position)).removeValue();
+                Log.d("deleteTest", idDataSet.get(position));
             }
 
         });
@@ -90,7 +98,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(admin_home.class, edit_item.class));
+                Intent intent = new Intent(myContext, edit_item.class);
+                intent.putExtra("course_code", viewHolder.getTextView().getText().toString());
+                myContext.startActivity(intent);
             }
 
         });

@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingTop="10dp"
-    android:paddingBottom="10dp">
+    android:paddingTop="12dp"
+    android:paddingBottom="12dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <TextView
             android:id="@+id/comp_course_name"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textAlignment="center"
@@ -33,7 +33,7 @@
             android:text="delete"
             android:textSize="10sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.95"
+            app:layout_constraintHorizontal_bias="0.86"
             app:layout_constraintStart_toEndOf="@+id/comp_course_name"
             app:layout_constraintTop_toTopOf="parent" />
 

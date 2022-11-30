@@ -38,10 +38,11 @@
             android:label="Home">
         </activity>
         <activity android:name=".edit_item"
-            android:label="Home">
+            android:label="Edit Course">
         </activity>
         <activity android:name=".student_homepage"
             android:label="Student Homepage"
+            android:windowSoftInputMode="stateHidden|adjustPan"
             android:exported="true">
         </activity>
         <activity android:name=".generate_timeline"

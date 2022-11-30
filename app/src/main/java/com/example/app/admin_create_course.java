@@ -3,31 +3,20 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
 
-import android.text.InputType;
-import android.view.LayoutInflater;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.app.databinding.FragmentAdminCreateCourseBinding;
-import com.example.app.databinding.FragmentAdminHomeBinding;
 //import com.example.app.databinding.FragmentFirstBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class admin_create_course extends AppCompatActivity {
 
@@ -39,6 +28,7 @@ public class admin_create_course extends AppCompatActivity {
 //    setContentView(R.layout.adm);
 
     private TextView submitCourse;
+    private static int i;
 
 //
 //    // TODO: Rename and change types of parameters
@@ -57,19 +47,14 @@ public class admin_create_course extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_admin_create_course);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
 
-
-        Spinner spinner = (Spinner) findViewById(R.id.sessionsOfferedSpinner);
-        //creating array adapter
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.sessions_offered, android.R.layout.simple_spinner_item);
-        //layout
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+//        Spinner spinner = (Spinner) findViewById(R.id.sessionsOfferedSpinner);
+//        //creating array adapter
+//        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+//                R.array.sessions_offered, android.R.layout.simple_spinner_item);
+//        //layout
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner.setAdapter(adapter);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
@@ -79,24 +64,41 @@ public class admin_create_course extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatabaseReference courses = database.getReference();
-//                String courseNameInput = binding.courseNameInput.getText().toString();
+//                String courseNameInput = binding.courseCodeInput.getText().toString();
 
-                String courseNameInput = ((EditText) findViewById(R.id.courseNameInput)).getText().toString();
+                String courseCodeInput = ((EditText) findViewById(R.id.courseCodeInput)).getText().toString();
+                String courseNameInput = ((EditText) findViewById(R.id.edit_courseNameInput)).getText().toString();
 
-
-//                DatabaseReference prerequisites = database.getReference("");
-//                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
                 String coursePrerequisiteInput = ((EditText) findViewById(R.id.prerequisitesInput)).getText().toString();
                 List<String> preList = setPrerequisites(coursePrerequisiteInput);
+                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.sessionsOffered)).getText().toString();
+                List<String> sessionsList = new ArrayList<String>();
+                if(!sessionsPrerequisiteInput.isEmpty()) {
+                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
+                }
                 //getting value from spinner
-                String sessionInput = spinner.getSelectedItem().toString();
+//                String sessionInput = spinner.getSelectedItem().toString();
+//                String courseId = "course";
+//                if(getIntent().hasExtra("x")) {
+//                    courseId = "course" + getIntent().getStringExtra("x");
+//
+//                }
 
-                if(courseNameInput != "") {
-                    courses.child("Courses").child(courseNameInput).child("prerequisites").setValue(preList);
-                    courses.child("Courses").child(courseNameInput).child("sessionOffered").setValue(sessionInput);
+                String courseId = "course" + String.valueOf(i);
+
+                Log.d("icourse", courseId);
+
+
+                if(!courseCodeInput.isEmpty()) {
+                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
+                    courses.child("Courses").child(courseId).child("Course Name").setValue(courseNameInput);
+                    courses.child("Courses").child(courseId).child("prerequisites").setValue(preList);
+                    courses.child("Courses").child(courseId).child("sessionOffered").setValue(sessionsList);
+                    i+=1;
+                    Log.d("ibob", String.valueOf(i));
+                    startActivity(new Intent(admin_create_course.this, admin_home.class));
                 }
 
-                startActivity(new Intent(admin_create_course.this, admin_home.class));
             }
         });
     }
