@@ -25,7 +25,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 
 public class student_homepage extends AppCompatActivity {
@@ -55,9 +58,10 @@ public class student_homepage extends AppCompatActivity {
     private TextView add_comp_course;
     private TextView confirm_course_click;
     private TextView make_timeline_click;
+    private TextView logoutClick;
     private RecyclerView recycler_view;
     comp_course_adapter myAdapter;
-    ArrayList<String> list = new ArrayList<String>();
+    Map<String, String> course_dictionary;
 
     public student_homepage() {
         // Required empty public constructor
@@ -79,13 +83,17 @@ public class student_homepage extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                list.clear();
+                course_dictionary.clear();
+                int i = 0;
                 for (DataSnapshot childSnapshot : snapshot.getChildren()) {
-                    String course = childSnapshot.getKey();
-                    if (!list.contains(course)) {
-                        list.add(course);
+                    String code = childSnapshot.getKey();
+                    if (!course_dictionary.containsKey(code)) {
+                        String course = user_database.child("Courses").child("course" + i).child("Course Code").child(code).toString();
+                        course_dictionary.put(code, course);
+                        i++;
                     }
                 }
+                ArrayList<String> list = new ArrayList<String>(course_dictionary.keySet());
                 myAdapter = new comp_course_adapter(list);
                 recycler_view.setAdapter(myAdapter);
                 recycler_view.setLayoutManager(llm);
@@ -111,11 +119,17 @@ public class student_homepage extends AppCompatActivity {
                             mySnackbar.show();
                         }
                         else if(dataSnapshot.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).exists()) {
-                            Snackbar newSnackbar = Snackbar.make(view, "Course is already in list", 3000);
+                            Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 3000);
                             newSnackbar.show();
                         }
                         else {
-                            user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(true);
+                            String key = "";
+                            int i = 0;
+                            while(!(dataSnapshot.child("course" + i).child("Course Code").toString()).equals(key)) {
+                                key = user_database.child("Courses").child("course" + i).toString();
+                                i++;
+                            }
+                            user_database.child("User Database").child("s1").child("Completed Courses").child(comp_course_input).setValue(key);
                             add_comp_course.setText("");
                         }
                     }
@@ -132,6 +146,14 @@ public class student_homepage extends AppCompatActivity {
             @Override
             public void onClick(View view1) {
                 startActivity(new Intent(student_homepage.this, generate_timeline.class));
+            }
+        });
+
+        logoutClick = (TextView) findViewById(R.id.logout);
+        logoutClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(student_homepage.this, login.class));
             }
         });
     }

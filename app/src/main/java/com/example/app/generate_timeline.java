@@ -60,7 +60,6 @@ public class generate_timeline extends AppCompatActivity {
     private List<String> inputCourses(String toTake) {
         return Arrays.asList(toTake.split(","));
     }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +72,7 @@ public class generate_timeline extends AppCompatActivity {
             public void onClick(View view) {
                 String coursesToTake = ((EditText) findViewById(R.id.to_take)).getText().toString();
                 List toTake = inputCourses(coursesToTake);
-                startActivity(new Intent(generate_timeline.this, timeline_page.class));
+                startActivity(new Intent(generate_timeline.this, student_homepage.class));
             }
         });
     }
