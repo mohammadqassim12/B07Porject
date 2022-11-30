@@ -28,7 +28,7 @@ public class admin_create_course extends AppCompatActivity {
 //    setContentView(R.layout.adm);
 
     private TextView submitCourse;
-    private static int i = 0;
+    private static int i;
 
 //
 //    // TODO: Rename and change types of parameters
