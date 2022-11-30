@@ -1,19 +1,29 @@
 package com.example.app;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link generate_timeline#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class generate_timeline extends Fragment {
+public class generate_timeline extends AppCompatActivity {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,20 +52,32 @@ public class generate_timeline extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+       // fragment.setArguments(args);
         return fragment;
     }
 
+    private TextView gen_time;
+    private List<String> inputCourses(String toTake) {
+        return Arrays.asList(toTake.split(","));
+    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setContentView(R.layout.fragment_generate_timeline);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        gen_time = (TextView) findViewById(R.id.generate_timeline);
+        gen_time.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String coursesToTake = ((EditText) findViewById(R.id.to_take)).getText().toString();
+                List toTake = inputCourses(coursesToTake);
+                startActivity(new Intent(generate_timeline.this, student_homepage.class));
+            }
+        });
     }
 
-    @Override
+   // @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
