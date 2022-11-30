@@ -70,7 +70,7 @@ public class admin_home extends AppCompatActivity {
 
                 Log.d("onDataChangeTest", "testing");
 
-                courseAdapter adapter = new courseAdapter(courses);
+                courseAdapter adapter = new courseAdapter(courses, admin_home.this);
                 rvCourses.setAdapter(adapter);
                 rvCourses.setLayoutManager(llm);
 
