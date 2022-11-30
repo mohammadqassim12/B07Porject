@@ -1,25 +1,34 @@
 package com.example.app;
 
+import android.annotation.SuppressLint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
-import java.util.List;
 
 public class comp_course_adapter extends RecyclerView.Adapter<comp_course_adapter.courseViewHolder> {
 
-    List<String> list;
+    ArrayList<String> list;
+    Button deleteCourse;
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference myRef = database.getReference().child("User Database").child("s1").child("Completed Courses");
+
 
     public comp_course_adapter( ArrayList<String> list) {
         this.list = list;
     }
 
     public static class courseViewHolder extends RecyclerView.ViewHolder {
-        TextView comp_course;
+        private final TextView comp_course;
 
         public courseViewHolder(View itemView) {
             super(itemView);
@@ -40,6 +49,16 @@ public class comp_course_adapter extends RecyclerView.Adapter<comp_course_adapte
     @Override
     public void onBindViewHolder(courseViewHolder holder, int position) {
         holder.getTextView().setText(list.get(position));
+
+        View view = holder.itemView;
+
+        deleteCourse = (Button) view.findViewById(R.id.deleteCourse);
+        deleteCourse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                myRef.child(holder.getTextView().getText().toString()).removeValue();
+            }
+        });
     }
 
     @Override
