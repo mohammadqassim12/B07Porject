@@ -53,7 +53,6 @@ public class edit_item extends AppCompatActivity {
                 else {
                     array.clear();
                     for (DataSnapshot childSnapshot : dataSnapshot.getChildren()) {
-                        Log.d("testingtesting", childSnapshot.getValue().toString());
                         if(!array.contains(childSnapshot.getValue())) {
                             array.add(childSnapshot.getValue().toString());
                         }
@@ -95,13 +94,13 @@ public class edit_item extends AppCompatActivity {
                 //&& !courseNameInput.isEmpty() && !preList.isEmpty() && !sessionsList.isEmpty()
 
                 if(!courseCodeInput.isEmpty() ) {
-                    Log.d("hellotest3", "hello");
+//                    Log.d("hellotest3", "hello");
 
                     courses.child("Courses").child(courseCodeInput).setValue(courseCodeInput);
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
                     } else {
-                        Log.d("asdf", courses.child("Courses").child(courseCode).child("Course Name").toString());
+//                        Log.d("asdf", courses.child("Courses").child(courseCode).child("Course Name").toString());
                         getData(courses,"Course Name", courseCode, courseCodeInput);
 //                        courses.child("Courses").child(courseCodeInput).child("Course Name").setValue();
                     }
@@ -115,16 +114,16 @@ public class edit_item extends AppCompatActivity {
                     } else {
                         getData(courses,"sessionsOffered", courseCode, courseCodeInput);
                     }
-                    Log.d("here", courses.child("Courses").child(courseCode).getKey());
+//                    Log.d("here", courses.child("Courses").child(courseCode).getKey());
                     courses.child("Courses").child(courseCode).removeValue();
 
                     courses.child("User Database").addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange( DataSnapshot dataSnapshot) {
                             for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                                Log.d("childcourseCode", courseCode);
-                                Log.d("childcourseCode", childSnapshot.getKey());
-                                Log.d("childBoolean", String.valueOf(childSnapshot.child("Completed Courses").hasChild(courseCode)));
+//                                Log.d("childcourseCode", courseCode);
+//                                Log.d("childcourseCode", childSnapshot.getKey());
+//                                Log.d("childBoolean", String.valueOf(childSnapshot.child("Completed Courses").hasChild(courseCode)));
                                 if( childSnapshot.child("Completed Courses").hasChild(courseCode)) {
                                     Log.d("childhello", "hello" );
                                     courses.child("User Database").child(childSnapshot.getKey()).child("Completed Courses").child(courseCode).removeValue();
@@ -140,7 +139,7 @@ public class edit_item extends AppCompatActivity {
                 }
 
                 if(courseCodeInput.isEmpty()) {
-                    Log.d("hellotest2", "hello");
+//                    Log.d("hellotest2", "hello");
 
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCode).child("Course Name").setValue(courseNameInput);
