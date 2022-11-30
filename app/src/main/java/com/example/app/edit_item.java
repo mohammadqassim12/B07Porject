@@ -70,9 +70,11 @@ public class edit_item extends AppCompatActivity {
                 if(!courseCodeInput.isEmpty() ) {
                     Log.d("hellotest3", "hello");
 
-                    courses.child("Courses").child(courseCodeInput).setValue(courseCodeInput);
+
+                    courses.child("Courses").child(courseCodeInput);
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
+                    } else {
                     }
                     if(!preList.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
@@ -80,7 +82,9 @@ public class edit_item extends AppCompatActivity {
                     if(!sessionsList.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("sessionOffered").setValue(sessionsList);
                     }
+
                     courses.child("Courses").child(courseCode).removeValue();
+
 
                 }
 

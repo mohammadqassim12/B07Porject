@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ public class admin_create_course extends AppCompatActivity {
 //    setContentView(R.layout.adm);
 
     private TextView submitCourse;
+    private static int i = 0;
 
 //
 //    // TODO: Rename and change types of parameters
@@ -45,11 +47,6 @@ public class admin_create_course extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_admin_create_course);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
-
 
 //        Spinner spinner = (Spinner) findViewById(R.id.sessionsOfferedSpinner);
 //        //creating array adapter
@@ -72,10 +69,6 @@ public class admin_create_course extends AppCompatActivity {
                 String courseCodeInput = ((EditText) findViewById(R.id.courseCodeInput)).getText().toString();
                 String courseNameInput = ((EditText) findViewById(R.id.edit_courseNameInput)).getText().toString();
 
-
-
-//                DatabaseReference prerequisites = database.getReference("");
-//                String coursePrerequisiteInput = binding.prerequisitesInput.getText().toString();
                 String coursePrerequisiteInput = ((EditText) findViewById(R.id.prerequisitesInput)).getText().toString();
                 List<String> preList = setPrerequisites(coursePrerequisiteInput);
                 String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.sessionsOffered)).getText().toString();
@@ -85,11 +78,24 @@ public class admin_create_course extends AppCompatActivity {
                 }
                 //getting value from spinner
 //                String sessionInput = spinner.getSelectedItem().toString();
+//                String courseId = "course";
+//                if(getIntent().hasExtra("x")) {
+//                    courseId = "course" + getIntent().getStringExtra("x");
+//
+//                }
+
+                String courseId = "course" + String.valueOf(i);
+
+                Log.d("icourse", courseId);
+
 
                 if(!courseCodeInput.isEmpty()) {
-                    courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
-                    courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
-                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").setValue(sessionsList);
+                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
+                    courses.child("Courses").child(courseId).child("Course Name").setValue(courseNameInput);
+                    courses.child("Courses").child(courseId).child("prerequisites").setValue(preList);
+                    courses.child("Courses").child(courseId).child("sessionOffered").setValue(sessionsList);
+                    i+=1;
+                    Log.d("ibob", String.valueOf(i));
                     startActivity(new Intent(admin_create_course.this, admin_home.class));
                 }
 
