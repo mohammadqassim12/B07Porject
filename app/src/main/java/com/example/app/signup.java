@@ -40,6 +40,7 @@ public class signup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 EditText confirmation = findViewById(R.id.editTextTextPersonName5);
+                //this takes in the pointer and converts it to a text and then to a string
                 String ID = ID_num_in.getText().toString();
                 boolean acceptable_ID = ID.charAt(0) == 'a' || ID.charAt(0) == 's';
                 DatabaseReference User_Data = FirebaseDatabase.getInstance().getReference("User Database");
