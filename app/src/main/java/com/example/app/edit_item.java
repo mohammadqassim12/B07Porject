@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -28,11 +29,10 @@ public class edit_item extends AppCompatActivity {
 
     private TextView submit;
     private ArrayList<String> array = new ArrayList<String>();
-
+    CheckBox checkFall, checkSummer, checkWinter;
 
     public List<String> setPrerequisites(String s){
         return Arrays.asList(s.split(","));
-
     }
 
     public void getIncomingIntent(){
@@ -86,10 +86,31 @@ public class edit_item extends AppCompatActivity {
                     preList = setPrerequisites(coursePrerequisiteInput);
                 }
 
-                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.edit_sessionsOffered)).getText().toString();
-                List<String> sessionsList = new ArrayList<String>();
-                if(!sessionsPrerequisiteInput.isEmpty()) {
-                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
+                checkFall = (CheckBox)findViewById(R.id.checkFall);
+                checkWinter = (CheckBox)findViewById(R.id.checkWinter);
+                checkSummer = (CheckBox)findViewById(R.id.checkSummer);
+
+//                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.edit_sessionsOffered)).getText().toString();
+//                List<String> sessionsList = new ArrayList<String>();
+//                if(!sessionsPrerequisiteInput.isEmpty()) {
+//                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
+//                }
+                List<Boolean> sessionsList = new ArrayList<Boolean>();
+
+                if(checkFall.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
+                }
+                if(checkWinter.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
+                }
+                if(checkSummer.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
                 }
                 //&& !courseNameInput.isEmpty() && !preList.isEmpty() && !sessionsList.isEmpty()
 
@@ -102,18 +123,37 @@ public class edit_item extends AppCompatActivity {
                     } else {
 //                        Log.d("asdf", courses.child("Courses").child(courseCode).child("Course Name").toString());
                         getData(courses,"Course Name", courseCode, courseCodeInput);
-//                        courses.child("Courses").child(courseCodeInput).child("Course Name").setValue();
                     }
                     if(!preList.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
                     } else {
                         getData(courses,"prerequisites", courseCode, courseCodeInput);
                     }
-                    if(!sessionsList.isEmpty()) {
-                        courses.child("Courses").child(courseCodeInput).child("sessionsOffered").setValue(sessionsList);
+
+                    DatabaseReference sessionOffer = courses.child("Courses").child(courseCodeInput).child("sessionOffered");
+
+                    boolean value;
+                    if(checkFall.isChecked()) {
+                        value = true;
                     } else {
-                        getData(courses,"sessionsOffered", courseCode, courseCodeInput);
+                        value = false;
                     }
+                    sessionOffer.child("Fall").setValue(value);
+
+                    if(checkWinter.isChecked()) {
+                        value = true;
+                    } else {
+                        value = false;
+                    }
+                    sessionOffer.child("Winter").setValue(value);
+
+                    if(checkSummer.isChecked()) {
+                        value = true;
+                    } else {
+                        value = false;
+                    }
+                    sessionOffer.child("Summer").setValue(value);
+
 //                    Log.d("here", courses.child("Courses").child(courseCode).getKey());
                     courses.child("Courses").child(courseCode).removeValue();
 
@@ -147,9 +187,30 @@ public class edit_item extends AppCompatActivity {
                     if(!preList.isEmpty()) {
                         courses.child("Courses").child(courseCode).child("prerequisites").setValue(preList);
                     }
-                    if(!sessionsList.isEmpty()) {
-                        courses.child("Courses").child(courseCode).child("sessionsOffered").setValue(sessionsList);
+
+                    DatabaseReference sessionOffer = courses.child("Courses").child(courseCode).child("sessionOffered");
+
+                    boolean value;
+                    if(checkFall.isChecked()) {
+                        value = true;
+                    } else {
+                        value = false;
                     }
+                    sessionOffer.child("Fall").setValue(value);
+
+                    if(checkWinter.isChecked()) {
+                        value = true;
+                    } else {
+                        value = false;
+                    }
+                    sessionOffer.child("Winter").setValue(value);
+
+                    if(checkSummer.isChecked()) {
+                        value = true;
+                    } else {
+                        value = false;
+                    }
+                    sessionOffer.child("Summer").setValue(value);
                 }
                 startActivity(new Intent(edit_item.this, admin_home.class));
             }
