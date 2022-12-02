@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -20,24 +21,13 @@ import java.util.List;
 
 public class admin_create_course extends AppCompatActivity {
 
-//    // TODO: Rename parameter arguments, choose names that match
-//    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
 //    private FragmentAdminCreateCourseBinding binding;
 //    setContentView(R.layout.adm);
 
     private TextView submitCourse;
     private static int i;
+    CheckBox checkFall, checkSummer, checkWinter;
 
-//
-//    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
-    public admin_create_course() {
-        // Required empty public constructor
-    }
 
     public List<String> setPrerequisites(String s){
         return Arrays.asList(s.split(","));
@@ -64,18 +54,42 @@ public class admin_create_course extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 DatabaseReference courses = database.getReference();
-//                String courseNameInput = binding.courseCodeInput.getText().toString();
 
                 String courseCodeInput = ((EditText) findViewById(R.id.courseCodeInput)).getText().toString();
                 String courseNameInput = ((EditText) findViewById(R.id.edit_courseNameInput)).getText().toString();
 
                 String coursePrerequisiteInput = ((EditText) findViewById(R.id.prerequisitesInput)).getText().toString();
                 List<String> preList = setPrerequisites(coursePrerequisiteInput);
-                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.sessionsOffered)).getText().toString();
-                List<String> sessionsList = new ArrayList<String>();
-                if(!sessionsPrerequisiteInput.isEmpty()) {
-                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
+
+                checkFall = (CheckBox)findViewById(R.id.checkFall);
+                checkWinter = (CheckBox)findViewById(R.id.checkWinter);
+                checkSummer = (CheckBox)findViewById(R.id.checkSummer);
+
+//                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.sessionsOffered)).getText().toString();
+//                List<String> sessionsList = new ArrayList<String>();
+                List<Boolean> sessionsList = new ArrayList<Boolean>();
+
+//                if(!sessionsPrerequisiteInput.isEmpty()) {
+//                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
+//                }
+
+                if(checkFall.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
                 }
+                if(checkWinter.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
+                }
+                if(checkSummer.isChecked()) {
+                    sessionsList.add(true);
+                } else {
+                    sessionsList.add(false);
+                }
+
+//                sessionsList = setPrerequisites(sessionsPrerequisiteInput);
                 //getting value from spinner
 //                String sessionInput = spinner.getSelectedItem().toString();
 //                String courseId = "course";
@@ -90,10 +104,14 @@ public class admin_create_course extends AppCompatActivity {
 
 
                 if(!courseCodeInput.isEmpty()) {
-                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
-                    courses.child("Courses").child(courseId).child("Course Name").setValue(courseNameInput);
-                    courses.child("Courses").child(courseId).child("prerequisites").setValue(preList);
-                    courses.child("Courses").child(courseId).child("sessionOffered").setValue(sessionsList);
+//                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
+                    courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
+                    courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
+                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Fall").setValue(sessionsList.get(0));
+                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Winter").setValue(sessionsList.get(1));
+                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Summer").setValue(sessionsList.get(2));
+
+
                     i+=1;
                     Log.d("ibob", String.valueOf(i));
                     startActivity(new Intent(admin_create_course.this, admin_home.class));
