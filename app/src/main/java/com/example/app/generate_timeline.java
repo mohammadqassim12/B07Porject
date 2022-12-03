@@ -170,7 +170,7 @@ public class generate_timeline extends AppCompatActivity {
                             message.show();
                             x=-1;
                             break;
-                        1
+                        }
                     }
                     if (x == 0) {
                         String[] y = new String[6];
