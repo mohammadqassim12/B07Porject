@@ -16,12 +16,20 @@ Any impediments or stumbling blocks?
 
 
 
-Name: Claire
+Name: Clare
 What have you done since yesterday?
+  - updated student and admin homepages to limit inputs
+  - students can only add courses whose prerequisites are already in database
+  - admin can only add courses whose code is unique
+  - admin can only add courses whose prerequisites exist in database
+  - admin can only add courses if at least one session is chosen
 
 What are you planning on doing today?
-
+ - update edit button on admin side to reflect changes to admin homepage
+  
 Any impediments or stumbling blocks?
+  - quiz in another course (24hr take home quiz)
+  - assignment in another course
 
 
 
