@@ -48,6 +48,9 @@
         <activity android:name=".generate_timeline"
             android:label="Generate Timeline">
         </activity>
+        <activity android:name=".timeline_page"
+            android:label="Timeline Page">
+        </activity>
     </application>
 
 </manifest>

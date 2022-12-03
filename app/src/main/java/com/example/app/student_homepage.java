@@ -137,7 +137,11 @@ public class student_homepage extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+                Intent send = new Intent(student_homepage.this, generate_timeline.class);
+                send.putExtra("Send", studentID);
+                startActivity(send);
             }
+
         });
 
         make_timeline_click = (TextView) findViewById(R.id.make_timeline);
