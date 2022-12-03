@@ -113,27 +113,25 @@ public class student_homepage extends AppCompatActivity {
                             mySnackbar.show();
                         }
                         else if(dataSnapshot.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).exists()) {
-                            Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 3000);
+                            Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 4000);
                             newSnackbar.show();
                         }
                         else {
+                            final boolean[] hasAllPrereq = {true};
                             for(DataSnapshot prereqSnapshot: dataSnapshot.child("Courses").child(comp_course_input).child("prerequisites").getChildren()) {
-                                database.child("User database").child(studentID).child("Completed Courses").addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        if(!snapshot.child(prereqSnapshot.getValue().toString()).exists()) {
-                                            database.child("User Database").child(studentID).child("Completed Courses").child(prereqSnapshot.getValue().toString()).setValue(true);
-                                        }
-                                    }
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                    }
-                                });
+                                DataSnapshot preInComp = dataSnapshot.child("User Database").child(studentID).child("Completed Courses").child(prereqSnapshot.getValue().toString());
+                                if(!prereqSnapshot.getValue().toString().equals("") && !preInComp.exists()) {
+                                    hasAllPrereq[0] = false;
+                                    Snackbar yourSnackbar = Snackbar.make(view, "Prerequisites for course have not been completed", 5000);
+                                    yourSnackbar.show();
+                                    break;
+                                }
                             }
-                            database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
+                            if(hasAllPrereq[0]) {
+                                database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
+                                add_comp_course.setText("");
+                            }
                         }
-
-                        add_comp_course.setText("");
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {

@@ -1,8 +1,10 @@
 package com.example.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
@@ -12,8 +14,13 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 //import com.example.app.databinding.FragmentFirstBinding;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.SnackbarContentLayout;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -105,18 +112,49 @@ public class admin_create_course extends AppCompatActivity {
 
                 if(!courseCodeInput.isEmpty()) {
 //                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
-                    courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
-                    courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
-                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Fall").setValue(sessionsList.get(0));
-                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Winter").setValue(sessionsList.get(1));
-                    courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Summer").setValue(sessionsList.get(2));
+                    courses.child("Courses").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange( DataSnapshot snapshot) {
+                            final boolean[] check = {true};
+                            if(snapshot.child(courseCodeInput).exists()) {
+                                Snackbar mySnackbar = Snackbar.make(view, "Course already exists", 3000);
+                                mySnackbar.show();
+                                check[0] = false;
+                            }
+                            if(preList != null) {
+                                for (String prereq : preList) {
+                                    if (!snapshot.child(prereq).exists()) {
+                                        Snackbar mySnackbar = Snackbar.make(view, "Prerequisite course does not exist", 3000);
+                                        mySnackbar.show();
+                                        check[0] = false;
+                                        break;
+                                    }
+                                }
+                            }
+                            if(!checkFall.isChecked() && !checkWinter.isChecked() && !checkSummer.isChecked()) {
+                                Snackbar mySnackbar = Snackbar.make(view, "Choose at least one session to offer course", 4000);
+                                mySnackbar.show();
+                                check[0] = false;
+                            }
+                            if(check[0]) {
+                                courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
+                                courses.child("Courses").child(courseCodeInput).child("prerequisites").setValue(preList);
+                                courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Fall").setValue(sessionsList.get(0));
+                                courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Winter").setValue(sessionsList.get(1));
+                                courses.child("Courses").child(courseCodeInput).child("sessionOffered").child("Summer").setValue(sessionsList.get(2));
 
 
-                    i+=1;
-                    Log.d("ibob", String.valueOf(i));
-                    startActivity(new Intent(admin_create_course.this, admin_home.class));
+                                i += 1;
+                                Log.d("ibob", String.valueOf(i));
+                                startActivity(new Intent(admin_create_course.this, admin_home.class));
+                            }
+                        }
+                        @Override
+                        public void onCancelled( DatabaseError error) {
+
+                        }
+                    });
                 }
-
             }
         });
     }
