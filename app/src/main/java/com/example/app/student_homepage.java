@@ -3,6 +3,7 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -112,19 +113,35 @@ public class student_homepage extends AppCompatActivity {
                             mySnackbar.show();
                         }
                         else if(dataSnapshot.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).exists()) {
-                            Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 3000);
+                            Snackbar newSnackbar = Snackbar.make(view, "Course already completed and in list", 4000);
                             newSnackbar.show();
                         }
                         else {
-                            database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
-                            add_comp_course.setText("");
+                            final boolean[] hasAllPrereq = {true};
+                            for(DataSnapshot prereqSnapshot: dataSnapshot.child("Courses").child(comp_course_input).child("prerequisites").getChildren()) {
+                                DataSnapshot preInComp = dataSnapshot.child("User Database").child(studentID).child("Completed Courses").child(prereqSnapshot.getValue().toString());
+                                if(!prereqSnapshot.getValue().toString().equals("") && !preInComp.exists()) {
+                                    hasAllPrereq[0] = false;
+                                    Snackbar yourSnackbar = Snackbar.make(view, "Prerequisites for course have not been completed", 5000);
+                                    yourSnackbar.show();
+                                    break;
+                                }
+                            }
+                            if(hasAllPrereq[0]) {
+                                database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
+                                add_comp_course.setText("");
+                            }
                         }
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
+                Intent send = new Intent(student_homepage.this, generate_timeline.class);
+                send.putExtra("Send", studentID);
+                startActivity(send);
             }
+
         });
 
         make_timeline_click = (TextView) findViewById(R.id.make_timeline);

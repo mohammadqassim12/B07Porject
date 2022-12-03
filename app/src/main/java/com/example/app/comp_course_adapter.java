@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -50,19 +54,6 @@ public class comp_course_adapter extends RecyclerView.Adapter<comp_course_adapte
     @Override
     public void onBindViewHolder(courseViewHolder holder, int position) {
         holder.getTextView().setText(list.get(position));
-
-        View view = holder.itemView;
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("User Database").child(studentID).child("Completed Courses");
-
-        deleteCourse = (Button) view.findViewById(R.id.deleteCourse);
-        deleteCourse.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                myRef.child(holder.getTextView().getText().toString()).removeValue();
-            }
-        });
     }
 
     @Override
