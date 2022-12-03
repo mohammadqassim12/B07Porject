@@ -3,6 +3,7 @@ package com.example.app;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -116,9 +117,23 @@ public class student_homepage extends AppCompatActivity {
                             newSnackbar.show();
                         }
                         else {
+                            for(DataSnapshot prereqSnapshot: dataSnapshot.child("Courses").child(comp_course_input).child("prerequisites").getChildren()) {
+                                database.child("User database").child(studentID).child("Completed Courses").addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if(!snapshot.child(prereqSnapshot.getValue().toString()).exists()) {
+                                            database.child("User Database").child(studentID).child("Completed Courses").child(prereqSnapshot.getValue().toString()).setValue(true);
+                                        }
+                                    }
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+                                    }
+                                });
+                            }
                             database.child("User Database").child(studentID).child("Completed Courses").child(comp_course_input).setValue(true);
-                            add_comp_course.setText("");
                         }
+
+                        add_comp_course.setText("");
                     }
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
