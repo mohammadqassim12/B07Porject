@@ -36,7 +36,7 @@
     <string name="want_course">Input All Courses Wanted in Your Timeline, Separated By Commas</string>
     <string name="new_courses">New Courses to Take</string>
     <string name="generate_timeline">Generate Timeline</string>
-    <string name="confirm_add">Add Completed Course to List</string>
+    <string name="confirm_add">Add to List</string>
     <string name="logout">Log Out</string>
     <string name="timetable">Time Table</string>
 </resources>
