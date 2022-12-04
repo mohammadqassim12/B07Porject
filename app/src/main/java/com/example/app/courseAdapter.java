@@ -13,8 +13,11 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,18 +82,46 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
         // contents of the view with that element
         viewHolder.getTextView().setText(localDataSet.get(position));
 
-
         View view = viewHolder.itemView;
 
         deleteButton = (Button) view.findViewById(R.id.delete_button);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                String deletedCourse = localDataSet.get(position);
+                myRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                            Log.d("TEST", childSnapshot.getKey());
+                            for(DataSnapshot pre: childSnapshot.child("prerequisites").getChildren()) {
+                                Log.d("PREQUISITES", pre.getValue().toString());
+//                                Log.d("sushi", localDataSet.get(position));
+
+                                if(pre.getValue().toString().equals(deletedCourse)) {
+                                    Log.d("HELELELELELE", childSnapshot.getKey());
+                                    Log.d("HELELELELELE", pre.getValue().toString());
+
+
+
+                                    myRef.child(childSnapshot.getKey()).child("prerequisites").child(pre.getValue().toString()).removeValue();
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError error) {
+                        // Failed to read value
+                        Log.w("testing", "Failed to read value.", error.toException());
+                    }
+                });
+
 //              myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
                 myRef.child(localDataSet.get(position)).removeValue();
-                Log.d("deleteTest", localDataSet.get(position));
-            }
 
+
+            }
         });
 
         editButton = (Button) view.findViewById(R.id.edit_button);
@@ -101,7 +132,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                 intent.putExtra("course_code", viewHolder.getTextView().getText().toString());
                 myContext.startActivity(intent);
             }
-
         });
     }
 
