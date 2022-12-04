@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class edit_item extends AppCompatActivity {
 
@@ -120,13 +121,31 @@ public class edit_item extends AppCompatActivity {
 
                 Log.d("CHECKED1", String.valueOf(checked));
                 if(!courseCodeInput.isEmpty()) {
-//                    Log.d("hellotest3", "hello");
+                    courses.child("Courses").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                                for(DataSnapshot pre: childSnapshot.child("prerequisites").getChildren()) {
+
+                                    if(pre.getValue().toString().equals(courseCode)) {
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put(pre.getKey().toString(), courseCodeInput);
+                                        courses.child("Courses").child(childSnapshot.getKey()).child("prerequisites").updateChildren(map);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.w("testing", "Failed to read value.", error.toException());
+                        }
+                    });
 
                     courses.child("Courses").child(courseCodeInput).setValue(courseCodeInput);
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
                     } else {
-//                        Log.d("asdf", courses.child("Courses").child(courseCode).child("Course Name").toString());
                         getData(courses,"Course Name", courseCode, courseCodeInput);
                     }
                     if(!preList.isEmpty()) {
@@ -166,9 +185,6 @@ public class edit_item extends AppCompatActivity {
                         @Override
                         public void onDataChange( DataSnapshot dataSnapshot) {
                             for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-//                                Log.d("childcourseCode", courseCode);
-//                                Log.d("childcourseCode", childSnapshot.getKey());
-//                                Log.d("childBoolean", String.valueOf(childSnapshot.child("Completed Courses").hasChild(courseCode)));
                                 if( childSnapshot.child("Completed Courses").hasChild(courseCode)) {
                                     Log.d("childhello", "hello" );
                                     courses.child("User Database").child(childSnapshot.getKey()).child("Completed Courses").child(courseCode).removeValue();
