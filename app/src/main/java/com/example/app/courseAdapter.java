@@ -93,18 +93,9 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-                            Log.d("TEST", childSnapshot.getKey());
                             for(DataSnapshot pre: childSnapshot.child("prerequisites").getChildren()) {
-                                Log.d("PREQUISITES", pre.getValue().toString());
-//                                Log.d("sushi", localDataSet.get(position));
-
                                 if(pre.getValue().toString().equals(deletedCourse)) {
-                                    Log.d("HELELELELELE", childSnapshot.getKey());
-                                    Log.d("HELELELELELE", pre.getValue().toString());
-
-
-
-                                    myRef.child(childSnapshot.getKey()).child("prerequisites").child(pre.getValue().toString()).removeValue();
+                                    myRef.child(childSnapshot.getKey()).child("prerequisites").child(pre.getKey().toString()).removeValue();
                                 }
                             }
                         }
@@ -119,7 +110,6 @@ public class courseAdapter extends RecyclerView.Adapter<courseAdapter.ViewHolder
 
 //              myRef.child(viewHolder.getTextView().getText().toString()).removeValue();
                 myRef.child(localDataSet.get(position)).removeValue();
-
 
             }
         });
