@@ -89,7 +89,6 @@ public class generate_timeline extends AppCompatActivity {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
 
         getIncomingIntent();
-        Log.d("studentID found", Student_id);
         gen_time = (TextView) findViewById(R.id.generate_timeline);
         gen_time.setOnClickListener(new View.OnClickListener() {
             @Override

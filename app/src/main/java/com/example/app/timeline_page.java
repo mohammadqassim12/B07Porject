@@ -37,7 +37,7 @@ public class timeline_page extends AppCompatActivity {
     private RecyclerView recycler_view3;
     comp_timetable_adapter myAdapter3;
 
-    ArrayList<String> courseCodeList = new ArrayList<>();
+    ArrayList<String> fall = new ArrayList<>();
 
     ArrayList<String> winter = new ArrayList<>();
 
@@ -58,9 +58,7 @@ public class timeline_page extends AppCompatActivity {
             }
         }
         a = aListColors.toArray( new String[aListColors.size()] );
-        for (int i=0; i< a.length ; i++){
-            courseCodeList.add(a[i]);
-        }
+
     }
 
 
@@ -77,44 +75,51 @@ public class timeline_page extends AppCompatActivity {
         setContentView(R.layout.fragment_timeline_page);
         getIncomingIntent();
         cleaner();
-        //courseCodeList.add("test test");
+
+        //Database handling
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        database.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (int i = 0; i < a.length; i++ ){
+                    String course = a[i];
+                    for (int j = 0; j< 4; j++){
+                        if(snapshot.child("Courses").child(course).child("sessionOffered").child("Fall").getValue()){
+
+                        }
+
+                    }
+
+
+
+
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
         recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-        //add courses to the display
-        //courseCodeList.add("test1" + " " + "testtest1");
-        //courseCodeList.add("test2");
-        //courseCodeList.add("test3");
-
-        myAdapter = new comp_timetable_adapter(courseCodeList);
-
+        myAdapter = new comp_timetable_adapter(fall);
         recycler_view1.setAdapter(myAdapter);
         recycler_view1.setLayoutManager(llm);
 
         recycler_view2 = (RecyclerView) findViewById(R.id.comp_timetable2_aa);
         LinearLayoutManager llm2 = new LinearLayoutManager(this);
-        //add courses to the display
-        winter.add("TEST01");
-
-
         myAdapter2 = new comp_timetable_adapter(winter);
-
         recycler_view2.setAdapter(myAdapter2);
-
         recycler_view2.setLayoutManager(llm2);
 
         recycler_view3 = (RecyclerView) findViewById(R.id.comp_timetable3_aa);
         LinearLayoutManager llm3 = new LinearLayoutManager(this);
-        //add courses to the display
-        summer.add("TEST03");
-
-
         myAdapter3 = new comp_timetable_adapter(summer);
-
         recycler_view3.setAdapter(myAdapter3);
-
         recycler_view3.setLayoutManager(llm3);
-
-
 
     }
 
