@@ -137,9 +137,6 @@ public class student_homepage extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
                     }
                 });
-                Intent send = new Intent(student_homepage.this, generate_timeline.class);
-                send.putExtra("Send", studentID);
-                startActivity(send);
             }
 
         });
@@ -148,7 +145,9 @@ public class student_homepage extends AppCompatActivity {
         make_timeline_click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view1) {
-                startActivity(new Intent(student_homepage.this, generate_timeline.class));
+                Intent send = new Intent(student_homepage.this, generate_timeline.class);
+                send.putExtra("Send", studentID);
+                startActivity(send);
             }
         });
 
