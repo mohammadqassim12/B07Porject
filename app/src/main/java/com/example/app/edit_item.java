@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ public class edit_item extends AppCompatActivity {
     private TextView submit;
     private ArrayList<String> array = new ArrayList<String>();
     CheckBox checkFall, checkSummer, checkWinter;
+    Boolean checked = false;
 
     public List<String> setPrerequisites(String s){
         return Arrays.asList(s.split(","));
@@ -90,11 +92,6 @@ public class edit_item extends AppCompatActivity {
                 checkWinter = (CheckBox)findViewById(R.id.checkWinter);
                 checkSummer = (CheckBox)findViewById(R.id.checkSummer);
 
-//                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.edit_sessionsOffered)).getText().toString();
-//                List<String> sessionsList = new ArrayList<String>();
-//                if(!sessionsPrerequisiteInput.isEmpty()) {
-//                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
-//                }
                 List<Boolean> sessionsList = new ArrayList<Boolean>();
 
                 if(checkFall.isChecked()) {
@@ -114,7 +111,15 @@ public class edit_item extends AppCompatActivity {
                 }
                 //&& !courseNameInput.isEmpty() && !preList.isEmpty() && !sessionsList.isEmpty()
 
-                if(!courseCodeInput.isEmpty() ) {
+                if(!checkFall.isChecked() && !checkSummer.isChecked() && !checkWinter.isChecked()) {
+                    Snackbar mySnackbar = Snackbar.make(v, "Please select at least one session", 5000);
+                    mySnackbar.show();
+                } else {
+                    checked = true;
+                }
+
+                Log.d("CHECKED1", String.valueOf(checked));
+                if(!courseCodeInput.isEmpty()) {
 //                    Log.d("hellotest3", "hello");
 
                     courses.child("Courses").child(courseCodeInput).setValue(courseCodeInput);
@@ -179,7 +184,6 @@ public class edit_item extends AppCompatActivity {
                 }
 
                 if(courseCodeInput.isEmpty()) {
-//                    Log.d("hellotest2", "hello");
 
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCode).child("Course Name").setValue(courseNameInput);
@@ -212,10 +216,11 @@ public class edit_item extends AppCompatActivity {
                     }
                     sessionOffer.child("Summer").setValue(value);
                 }
-                startActivity(new Intent(edit_item.this, admin_home.class));
+                if(checked) {
+                    startActivity(new Intent(edit_item.this, admin_home.class));
+                }
             }
         });
-
     }
 
     @Override
@@ -224,7 +229,5 @@ public class edit_item extends AppCompatActivity {
         setContentView(R.layout.edit_item);
 
         getIncomingIntent();
-
     }
-
 }
