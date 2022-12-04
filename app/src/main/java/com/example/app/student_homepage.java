@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -56,6 +59,7 @@ public class student_homepage extends AppCompatActivity {
 
     public void getIncomingIntent() {
         if (getIntent().hasExtra("studentID")) {
+            Log.d("ur gay",getIntent().getStringExtra("studentID") );
             studentID = getIntent().getStringExtra("studentID");
         }
     }
@@ -65,18 +69,30 @@ public class student_homepage extends AppCompatActivity {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.fragment_student_homepage);
-
+        getIncomingIntent();
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference key = database.child("User Database").child(studentID).child("name");
+        key.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                TextView a = findViewById(R.id.textView5);
+                a.setText(snapshot.getValue().toString());
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         recycler_view = (RecyclerView) findViewById(R.id.comp_courses_rv);
         LinearLayoutManager llm = new LinearLayoutManager(this);
-
-        getIncomingIntent();
         DatabaseReference myRef = database.child("User Database").child(studentID).child("Completed Courses");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override

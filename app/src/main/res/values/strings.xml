@@ -29,7 +29,7 @@
         <item>Summer</item>
     </string-array>
 
-    <string name="header">Completed Courses</string>
+    <string name="header">Summary of Courses Taken</string>
     <string name="add_comp_course">Add Completed Course</string>
     <string name="make_timeline">Input Courses to Generate Timeline</string>
 
