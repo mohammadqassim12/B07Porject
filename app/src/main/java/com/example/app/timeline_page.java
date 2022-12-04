@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashSet;
 
 public class timeline_page extends AppCompatActivity {
     private RecyclerView recycler_view1;
@@ -32,9 +34,14 @@ public class timeline_page extends AppCompatActivity {
     private RecyclerView recycler_view2;
     comp_timetable_adapter myAdapter2;
 
+    private RecyclerView recycler_view3;
+    comp_timetable_adapter myAdapter3;
+
     ArrayList<String> courseCodeList = new ArrayList<>();
 
     ArrayList<String> winter = new ArrayList<>();
+
+    ArrayList<String> summer = new ArrayList<>();
 
     String[] a = new String[6] ;
     public void getIncomingIntent (){
@@ -43,7 +50,7 @@ public class timeline_page extends AppCompatActivity {
         }
     }
     public void cleaner(){
-
+        
     }
 
 
@@ -90,6 +97,18 @@ public class timeline_page extends AppCompatActivity {
         recycler_view2.setAdapter(myAdapter2);
 
         recycler_view2.setLayoutManager(llm2);
+
+        recycler_view3 = (RecyclerView) findViewById(R.id.comp_timetable3_aa);
+        LinearLayoutManager llm3 = new LinearLayoutManager(this);
+        //add courses to the display
+        summer.add("TEST03");
+
+
+        myAdapter3 = new comp_timetable_adapter(summer);
+
+        recycler_view3.setAdapter(myAdapter3);
+
+        recycler_view3.setLayoutManager(llm3);
 
 
 
