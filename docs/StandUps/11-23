@@ -1,9 +1,15 @@
 Name: Arina
 What have you done since yesterday?
+    - designed the UI of login fragment with the edit text and hint and other basic UI features
+    - coded a back button for the sign-up fragment to go back to log-in
+    - tried getting help on the issues occuring from my teammate and the TA
+    - was able to resolve the issue and go forwards with the code
 
 What are you planning on doing today?
+    - resolve any further issues that arise
 
 Any impediments or stumbling blocks?
+    - dealing with merge conflicts 
 
 
 
