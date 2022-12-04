@@ -36,6 +36,11 @@ Any impediments or stumbling blocks?
 
 Name: Rachel
 What have you done since yesterday?
+- add sessionsOffered at least one restriction
+- add prerequisites only able to add course that already exists restriction
+- add restriction that a course code has to be added before submitting it to a new course
+- updated all prerequisites lsits when a course is deleted and it's a prerequisite of another course
+- updated prerequisites when a course name is edited, the coruses that have that prequisite have udpated prerequisites
 
 What are you planning on doing today?
 
