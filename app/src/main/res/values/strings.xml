@@ -33,7 +33,7 @@
     <string name="add_comp_course">Add Completed Course</string>
     <string name="make_timeline">Input Courses to Generate Timeline</string>
 
-    <string name="want_course">Input All Courses Wanted in Your Timeline, Separated By Commas</string>
+    <string name="want_course">Fill in the required field with the desired courses (Case-Sensitive)</string>
     <string name="new_courses">New Courses to Take</string>
     <string name="generate_timeline">Generate Timeline</string>
     <string name="confirm_add">Add to List</string>

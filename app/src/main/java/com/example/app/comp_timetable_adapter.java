@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class comp_timetable_adapter extends RecyclerView.Adapter<comp_timetable_adapter.courseViewHolder>{
     ArrayList<String> list;
-    String studentID;
+
 
     public static class courseViewHolder extends RecyclerView.ViewHolder {
         private final TextView comp_timetable;
@@ -27,9 +27,9 @@ public class comp_timetable_adapter extends RecyclerView.Adapter<comp_timetable_
         }
 
     }
-    public comp_timetable_adapter( ArrayList<String> list, String studentID) {
+    public comp_timetable_adapter( ArrayList<String> list) {
         this.list = list;
-        this.studentID = studentID;
+
     }
 
     @NonNull

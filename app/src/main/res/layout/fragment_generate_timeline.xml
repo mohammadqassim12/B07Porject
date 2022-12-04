@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".generate_timeline">
+    tools:context=".generate_timeline"
+    android:background="@drawable/course_selection">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -14,15 +15,21 @@
 
         <TextView
             android:id="@+id/want_course"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
+            android:layout_width="320dp"
+            android:layout_height="85dp"
+            android:fontFamily="@font/gotham"
+            android:gravity="center_horizontal"
             android:text="@string/want_course"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.089" />
+            app:layout_constraintVertical_bias="0.044" />
 
         <Button
             android:id="@+id/generate_timeline"
@@ -40,7 +47,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Course #1* (required)"
+            android:hint="Course #1              (required)"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -55,6 +66,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Course #2"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -69,6 +84,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Course #3"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -83,6 +102,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Course #4"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -95,6 +118,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Course #5"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -109,6 +136,10 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Course #6"
+            android:textColorHint="#C3C1C1"
+            android:fontFamily="@font/calibri"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
