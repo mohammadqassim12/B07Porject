@@ -99,8 +99,7 @@ public class admin_create_course extends AppCompatActivity {
                             Snackbar mySnackbar = Snackbar.make(view, "Please enter a prerequisite from a course that exists", 5000);
                             mySnackbar.show();
                             preList.remove(pre);
-                            Log.d("helloooooooooo", "hello");
-
+//                            Log.d("helloooooooooo", "hello");
                             wrongCount += 1;
                         }
                     }
