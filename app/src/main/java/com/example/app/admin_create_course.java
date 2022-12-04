@@ -112,7 +112,7 @@ public class admin_create_course extends AppCompatActivity {
 
                 if(!courseCodeInput.isEmpty()) {
 //                    courses.child("Courses").child(courseId).child("Course Code").setValue(courseCodeInput);
-                    courses.child("Courses").addValueEventListener(new ValueEventListener() {
+                    courses.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange( DataSnapshot snapshot) {
                             final boolean[] check = {true};
