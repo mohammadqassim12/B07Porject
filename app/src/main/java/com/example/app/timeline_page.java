@@ -30,11 +30,15 @@ public class timeline_page extends AppCompatActivity {
     private TextView confirm_course_click;
     private TextView make_timeline_click;
     private TextView logoutClick;
-    private RecyclerView recycler_view;
+    private RecyclerView recycler_view1;
+    private RecyclerView recycler_view2;
     comp_timetable_adapter myAdapter;
+    comp_timetable_adapter myAdapter2;
 
     String studentID;
     ArrayList<String> courseCodeList = new ArrayList<>();
+
+    ArrayList<String> winter = new ArrayList<>();
 
     String[] a = new String[6] ;
     public void getIncomingIntent (){
@@ -42,6 +46,7 @@ public class timeline_page extends AppCompatActivity {
             a = getIntent().getStringArrayExtra("Send");
         }
     }
+
 
     public timeline_page() {
         // Required empty public constructor
@@ -56,17 +61,35 @@ public class timeline_page extends AppCompatActivity {
         setContentView(R.layout.fragment_timeline_page);
         getIncomingIntent();
 
-        recycler_view = (RecyclerView) findViewById(R.id.comp_timetable_aa);
+
+        // put a into courseCodeList
+        for (int i=0; i<6; i++){
+            courseCodeList.add(a[i]);
+        }
+        courseCodeList.add("test test");
+        recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         //add courses to the display
-        courseCodeList.add("test1" + " " + "testtest1");
-        courseCodeList.add("test2");
-        courseCodeList.add("test3");
+        //courseCodeList.add("test1" + " " + "testtest1");
+        //courseCodeList.add("test2");
+        //courseCodeList.add("test3");
 
         myAdapter = new comp_timetable_adapter(courseCodeList, studentID);
 
-        recycler_view.setAdapter(myAdapter);
-        recycler_view.setLayoutManager(llm);
+        recycler_view1.setAdapter(myAdapter);
+        recycler_view1.setLayoutManager(llm);
+
+        //recycler_view2 = (RecyclerView) findViewById(R.id.comp_timetable2_aa);
+        //LinearLayoutManager llm2 = new LinearLayoutManager(this);
+        //add courses to the display
+        //winter.add("test1" + " " + "testtest1");
+
+
+       // myAdapter2 = new comp_timetable_adapter(winter, studentID);
+
+        //recycler_view2.setAdapter(myAdapter);
+
+        //recycler_view2.setLayoutManager(llm2);
 
 
 
