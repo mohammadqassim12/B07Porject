@@ -50,7 +50,17 @@ public class timeline_page extends AppCompatActivity {
         }
     }
     public void cleaner(){
-        
+        ArrayList<String> aListColors = new ArrayList<String>();
+        for(int i=0; i < a.length; i++){
+
+            if( !aListColors.contains(a[i]) ){
+                aListColors.add(a[i]);
+            }
+        }
+        a = aListColors.toArray( new String[aListColors.size()] );
+        for (int i=0; i< a.length ; i++){
+            courseCodeList.add(a[i]);
+        }
     }
 
 
@@ -67,12 +77,6 @@ public class timeline_page extends AppCompatActivity {
         setContentView(R.layout.fragment_timeline_page);
         getIncomingIntent();
         cleaner();
-
-
-        // put a into courseCodeList
-        for (int i=0; i<6; i++){
-            courseCodeList.add(a[i]);
-        }
         //courseCodeList.add("test test");
         recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
         LinearLayoutManager llm = new LinearLayoutManager(this);
