@@ -1,6 +1,9 @@
 package com.example.app.Login_Pkg;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -28,6 +31,7 @@ public class login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Context login_con = this;
 
 
         setContentView(R.layout.login_screen);
@@ -38,27 +42,24 @@ public class login extends AppCompatActivity {
             public void onClick(View v) {
                 UserName_in = (EditText) findViewById(R.id.username);
                 Password_in = (EditText) findViewById(R.id.password);
-                Login_Presenter logic = new Login_Presenter(UserName_in.getText().toString(), Password_in.getText().toString());
-                logic.getDatabasePassword().addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (!(logic.errorExists(snapshot))) {
-                            if (logic.checkAdmin()) {
-                                startActivity(new Intent(login.this, admin_home.class));
-                            } else {
-                                Intent intent = new Intent(login.this, student_homepage.class);
-                                intent.putExtra("studentID", logic.Username);
-                                startActivity(intent);
-                            }
-                        } else {
-                            Snackbar mySnackbar = Snackbar.make (v, logic.createErrorMessage(), 2000);
-                            mySnackbar.show();
-                        }
+                String Username = UserName_in.getText().toString();
+                String Password = Password_in.getText().toString();
+                Login_Presenter database_logic = new Login_Presenter(login_con, Username, Password);
+                String DBpassword = database_logic.getDatabaseValue();
+                if (!(database_logic.ErrorExists(DBpassword))) {
+                    if (database_logic.checkAdmin()) {
+                        startActivity(new Intent(login.this, admin_home.class));
+                    } else {
+                        Intent intent = new Intent(login.this, student_homepage.class);
+                        intent.putExtra("studentID", database_logic.Username);
+                        startActivity(intent);
                     }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-                    }
-                });
+                } else {
+                    Snackbar mySnackbar = Snackbar.make(v, database_logic.createMessage(), 2000);
+                    mySnackbar.show();
+                }
+            }
+        });
                 signup_click = (TextView) findViewById(R.id.sign_up);
                 signup_click.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -66,7 +67,5 @@ public class login extends AppCompatActivity {
                         startActivity(new Intent(login.this, signup.class));
                     }
                 });
-            }
-        });
     }
 }

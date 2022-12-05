@@ -1,52 +1,60 @@
 package com.example.app.Login_Pkg;
 
+import static android.content.Context.MODE_PRIVATE;
+
+import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.common.util.SharedPreferencesUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 
-public class Login_Presenter {
+public class Login_Presenter extends AppCompatActivity {
     public String Username;
     private String Password;
-    public int ErrorCode;
+    private int ErrorCode;
+    public SharedPreferences pref;
+    public SharedPreferences.Editor edit;
     //Constructor
-    public Login_Presenter(String U_in, String P_in)
+    public Login_Presenter(Context login_con, String U_in, String P_in)
     {
         Username = U_in;
         Password = P_in;
+        pref = login_con.getSharedPreferences("myPreferences", Context.MODE_PRIVATE);
+        edit = pref.edit();
     }
-    //returns the database reference to the password of the corresponding instantiated Username
-    public DatabaseReference getDatabasePassword()
+    //Since this calls the Login_Model, this would be tested on an Integration Test, not a JUnit test
+    public String getDatabaseValue()
     {
-        Login_Model model = new Login_Model();
-        return model.getDBPasswordRef(Username);
-    }
-    //get() method for the private Password field
-    public String getPassword()
-    {
-        return Password;
+        Login_Model model = new Login_Model(pref, edit);
+        model.Password_Error_Searching(Username);
+        System.out.println(pref.getString("Password", null));
+        return pref.getString("Password", null);
     }
     //returns True if an error exists in the user input, false o/w
-    public boolean errorExists(DataSnapshot snapshot)
-    {
-        if (!(snapshot.exists()))
-        {
+    public boolean ErrorExists(String s) {
+        if (s == null) {
             ErrorCode = 1;
-            return true;
         }
-        if(snapshot.getValue().toString().equals(Password))
-        {
+        else if (s.equals(Password)) {
             ErrorCode = 0;
-            return false;
         }
-        ErrorCode = 2;
-        return true;
+        else {
+            ErrorCode = 2;
+        }
+        return ErrorCode != 0;
     }
+
     //Checks if the user input of the initialized Username is an admin assuming admin userIDs start with a
     public boolean checkAdmin()
     {
         return Username.startsWith("a");
     }
     //Returns the string to be displayed to the user if an error has occurred with the initialized ErrorCode
-    public String createErrorMessage()
+    public String createMessage()
     {
         if (ErrorCode == 1)
         {
