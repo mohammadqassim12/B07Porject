@@ -78,22 +78,36 @@ public class timeline_page extends AppCompatActivity {
 
         //Database handling
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        database.addListenerForSingleValueEvent(new ValueEventListener() {
+        database.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (int i = 0; i < a.length; i++ ){
-                    String course = a[i];
-                    for (int j = 0; j< 4; j++){
-                        if(snapshot.child("Courses").child(course).child("sessionOffered").child("Fall").getValue()){
+                for(DataSnapshot childSnapshot: snapshot.getChildren()) {
+                    for (int i = 0; i < a.length; i++ ){
+                        String course = a[i];
+                        Log.d("snapshoit", childSnapshot.getKey().toString());
+                        if(childSnapshot.getKey().toString().equals(course)){
+                            if((Boolean)childSnapshot.child("sessionOffered").child("Fall").getValue()){
+                                Log.d("Fall course", course);
+                                fall.add(course);
 
+                            }
+                            else if ((Boolean)childSnapshot.child("sessionOffered").child("Winter").getValue()){
+                                Log.d("Winter course", course);
+                                winter.add(course);
+                            }
+                            else{
+                                Log.d("Summer course", course);
+                                summer.add(course);
+                            }
                         }
 
+
+
+
+
                     }
-
-
-
-
                 }
+
             }
 
             @Override
