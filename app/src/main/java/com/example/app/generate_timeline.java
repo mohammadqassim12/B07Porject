@@ -132,14 +132,17 @@ public class generate_timeline extends AppCompatActivity {
                                         Snackbar message = Snackbar.make(view,"At least one of the input courses is already completed!", 5000);
                                         message.show();
                                         x[0] = -1; //course has already been completed by student, notify them and end
-                                    } else {
-                                        for (DataSnapshot snap : snapshot.child("Courses").child(course).child("prerequisites").getChildren()) {
-                                            if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").child(snap.getValue().toString()).exists()) {
-                                                Log.d("test3", "missing pre");
-                                                Snackbar message = Snackbar.make(view,"Prerequisite of one or more of the input courses is not taken", 5000);
-                                                message.show();
-                                                x[0] = -1;
-                                                break; //prerequisite was found that student has not completed, notify them and end
+
+                                    }else {
+                                        if (snapshot.child("User Database").child(Student_id).child("Completed Courses").exists()) {
+                                            for (DataSnapshot snap : snapshot.child("Courses").child(course).child("prerequisites").getChildren()) {
+                                                if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").child(snap.getValue().toString()).exists()) {
+                                                    Log.d("test3", "missing pre");
+                                                    Snackbar message = Snackbar.make(view, "Prerequisite of one or more of the input courses is not taken", 5000);
+                                                    message.show();
+                                                    x[0] = -1;
+                                                    break; //prerequisite was found that student has not completed, notify them and end
+                                                }
                                             }
                                         }
                                     }
