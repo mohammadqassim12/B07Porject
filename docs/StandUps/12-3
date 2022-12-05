@@ -9,11 +9,11 @@ Any impediments or stumbling blocks?
 
 Name: Casper
 What have you done since yesterday?
-
+  -Working on debugging database value listener to allow for data extractions
 What are you planning on doing today?
-
+  -Researching ways to save data within app to a 3rd party global variable
 Any impediments or stumbling blocks?
-
+  -THIS DATABASE LISTENER
 
 
 Name: Clare
