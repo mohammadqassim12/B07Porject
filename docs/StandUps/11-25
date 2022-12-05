@@ -1,9 +1,12 @@
 Name: Arina
 What have you done since yesterday?
-
+	- had a meeting with the team to discuss the best method for going forwrad with the student ID and admin ID
+	
 What are you planning on doing today?
+	- waiting for updates on the database side from my team
 
 Any impediments or stumbling blocks?
+	- gradle errors arose between different devices
 
 
 
@@ -27,11 +30,16 @@ Any impediments or stumbling blocks?
 
 Name: Mohammed
 What have you done since yesterday?
+	- Talked to my team about the required information to store the user data
+	- updated my sign up screen accordingly
+	- fixed a fatal error in my repo and my collaborators android studio setup as gradle keeps on
+	crashing, destroying our applications
 
 What are you planning on doing today?
+	-looking more into the problem and make sure it won't interfere with our code down the road.
 
 Any impediments or stumbling blocks?
-
+	- yes, a gradle issue that caused all versions of our applications to crash and had to "temporary" fix it.
 
 
 Name: Rachel

@@ -1,9 +1,13 @@
 Name: Arina
 What have you done since yesterday?
+	- completed log-in from the user side and handed off the logic side of the login to Casper
+	- assisted in the UI of sign-up screen
 
 What are you planning on doing today?
+	- dicuss the implementation of the log-in for student and admin
 
 Any impediments or stumbling blocks?
+	- not at the momment
 
 
 
@@ -28,13 +32,18 @@ Any impediments or stumbling blocks?
 
 
 
-Name: Mohammed
+Name: Mohammad
 What have you done since yesterday?
+	- implemented the sign up screen ui however, created temporary fields for the user input as
+	i have to talk to my team to confirm what information is required to store on the database.
 
 What are you planning on doing today?
+	- discuss with my team what information is required to create a user and save his own unique
+	credentials
+	
 
 Any impediments or stumbling blocks?
-
+	-no problems just confusion
 
 
 Name: Rachel

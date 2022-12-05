@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -34,18 +36,13 @@ public class admin_home extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getSupportActionBar().hide();
         setContentView(R.layout.fragment_admin_home);
         RecyclerView rvCourses = (RecyclerView) findViewById(R.id.coursesRecycler);
         LinearLayoutManager llm = new LinearLayoutManager(this);
 
-
-        createCourseButton = (TextView) findViewById(R.id.createCoursePage);
-        createCourseButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(new Intent(admin_home.this, admin_create_course.class)));
-            }
-        });
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference().child("Courses");
@@ -66,29 +63,10 @@ public class admin_home extends AppCompatActivity {
 
                 }
 
-//                Log.d("onDataChangeTest", "testing");
-
                 courseAdapter adapter = new courseAdapter(courses, admin_home.this);
                 rvCourses.setAdapter(adapter);
                 rvCourses.setLayoutManager(llm);
 
-//                deleteButton = (Button) findViewById(R.id.delete_button);
-//                deleteButton.setOnClickListener(new View.OnClickListener() {
-//                    //
-////                    @Override
-////                    public void onClick(View view) {
-////        //                        Log.d("deleteTest", dataSnapshot.getKey());
-////
-////                    }
-//
-//                });
-
-//                rvCourses.setLayoutManager(new LinearLayoutManager(this));
-
-//                                    Log.d("testing", adapter;
-
-                // This method is called once with the initial value and again
-                // whenever data at this location is updated.
             }
 
             @Override
@@ -98,18 +76,15 @@ public class admin_home extends AppCompatActivity {
             }
         });
 
-
-
-
+        createCourseButton = (TextView) findViewById(R.id.createCoursePage);
+        createCourseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(admin_home.this, admin_create_course.class);
+                intent.putExtra("courses", courses);
+                admin_home.this.startActivity(intent);
+            }
+        });
 
     }
-
-
-
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_admin_home, container, false);
-//    }
 }

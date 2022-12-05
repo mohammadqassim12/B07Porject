@@ -1,9 +1,15 @@
 Name: Arina
 What have you done since yesterday?
+    - designed the UI of login fragment with the edit text and hint and other basic UI features
+    - coded a back button for the sign-up fragment to go back to log-in
+    - tried getting help on the issues occuring from my teammate and the TA
+    - was able to resolve the issue and go forwards with the code
 
 What are you planning on doing today?
+    - resolve any further issues that arise
 
 Any impediments or stumbling blocks?
+    - dealing with merge conflicts 
 
 
 
@@ -30,13 +36,18 @@ Any impediments or stumbling blocks?
 
 
 
-Name: Mohammed
+Name: Mohammad
 What have you done since yesterday?
+	- started to implement the login module and the basic/generic design of the fragment
+	- looked into numerous small compiling errors that have occurred when setting up the buttons
+	(mainly the id of the buttons).
 
 What are you planning on doing today?
+	-finalize the login screen user interface in the sense of actions and buttons
+	responsibilities and start looking into the design of the sign up fragment
 
 Any impediments or stumbling blocks?
-
+	- I had some problems with implementing buttons and their id which caused my code to break
 
 
 Name: Rachel

@@ -38,5 +38,8 @@ Name: Rachel
 What have you done since yesterday?
 
 What are you planning on doing today?
+- updated sessions Offered database structure to hold boolean values
+- changed input type to checkboxes instead of edit input
+- updated edit courses file to accomodate for data structure changes
 
 Any impediments or stumbling blocks?

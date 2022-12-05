@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -14,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.fragment.NavHostFragment;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,12 +27,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class edit_item extends AppCompatActivity {
 
     private TextView submit;
     private ArrayList<String> array = new ArrayList<String>();
     CheckBox checkFall, checkSummer, checkWinter;
+    Boolean checked = false;
 
     public List<String> setPrerequisites(String s){
         return Arrays.asList(s.split(","));
@@ -90,11 +95,6 @@ public class edit_item extends AppCompatActivity {
                 checkWinter = (CheckBox)findViewById(R.id.checkWinter);
                 checkSummer = (CheckBox)findViewById(R.id.checkSummer);
 
-//                String sessionsPrerequisiteInput = ((EditText) findViewById(R.id.edit_sessionsOffered)).getText().toString();
-//                List<String> sessionsList = new ArrayList<String>();
-//                if(!sessionsPrerequisiteInput.isEmpty()) {
-//                    sessionsList = setPrerequisites(sessionsPrerequisiteInput);
-//                }
                 List<Boolean> sessionsList = new ArrayList<Boolean>();
 
                 if(checkFall.isChecked()) {
@@ -114,14 +114,40 @@ public class edit_item extends AppCompatActivity {
                 }
                 //&& !courseNameInput.isEmpty() && !preList.isEmpty() && !sessionsList.isEmpty()
 
-                if(!courseCodeInput.isEmpty() ) {
-//                    Log.d("hellotest3", "hello");
+                if(!checkFall.isChecked() && !checkSummer.isChecked() && !checkWinter.isChecked()) {
+                    Snackbar mySnackbar = Snackbar.make(v, "Please select at least one session", 5000);
+                    mySnackbar.show();
+                } else {
+                    checked = true;
+                }
+
+                Log.d("CHECKED1", String.valueOf(checked));
+                if(!courseCodeInput.isEmpty()) {
+                    courses.child("Courses").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
+                                for(DataSnapshot pre: childSnapshot.child("prerequisites").getChildren()) {
+
+                                    if(pre.getValue().toString().equals(courseCode)) {
+                                        Map<String, Object> map = new HashMap<>();
+                                        map.put(pre.getKey().toString(), courseCodeInput);
+                                        courses.child("Courses").child(childSnapshot.getKey()).child("prerequisites").updateChildren(map);
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError error) {
+                            Log.w("testing", "Failed to read value.", error.toException());
+                        }
+                    });
 
                     courses.child("Courses").child(courseCodeInput).setValue(courseCodeInput);
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCodeInput).child("Course Name").setValue(courseNameInput);
                     } else {
-//                        Log.d("asdf", courses.child("Courses").child(courseCode).child("Course Name").toString());
                         getData(courses,"Course Name", courseCode, courseCodeInput);
                     }
                     if(!preList.isEmpty()) {
@@ -161,9 +187,6 @@ public class edit_item extends AppCompatActivity {
                         @Override
                         public void onDataChange( DataSnapshot dataSnapshot) {
                             for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
-//                                Log.d("childcourseCode", courseCode);
-//                                Log.d("childcourseCode", childSnapshot.getKey());
-//                                Log.d("childBoolean", String.valueOf(childSnapshot.child("Completed Courses").hasChild(courseCode)));
                                 if( childSnapshot.child("Completed Courses").hasChild(courseCode)) {
                                     Log.d("childhello", "hello" );
                                     courses.child("User Database").child(childSnapshot.getKey()).child("Completed Courses").child(courseCode).removeValue();
@@ -179,7 +202,6 @@ public class edit_item extends AppCompatActivity {
                 }
 
                 if(courseCodeInput.isEmpty()) {
-//                    Log.d("hellotest2", "hello");
 
                     if(!courseNameInput.isEmpty()) {
                         courses.child("Courses").child(courseCode).child("Course Name").setValue(courseNameInput);
@@ -212,19 +234,17 @@ public class edit_item extends AppCompatActivity {
                     }
                     sessionOffer.child("Summer").setValue(value);
                 }
-                startActivity(new Intent(edit_item.this, admin_home.class));
+                if(checked) {
+                    startActivity(new Intent(edit_item.this, admin_home.class));
+                }
             }
         });
-
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_item);
-
         getIncomingIntent();
-
     }
-
 }

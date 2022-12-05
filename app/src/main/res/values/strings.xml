@@ -29,13 +29,21 @@
         <item>Summer</item>
     </string-array>
 
-    <string name="header">Completed Courses</string>
+    <string name="header">Summary of Courses Taken</string>
     <string name="add_comp_course">Add Completed Course</string>
     <string name="make_timeline">Input Courses to Generate Timeline</string>
 
-    <string name="want_course">Input All Courses Wanted in Your Timeline, Separated By Commas</string>
+    <string name="want_course">Fill in the required field with the desired courses (Case-Sensitive)</string>
     <string name="new_courses">New Courses to Take</string>
     <string name="generate_timeline">Generate Timeline</string>
-    <string name="confirm_add">Add Completed Course to List</string>
+    <string name="confirm_add">Add to List</string>
     <string name="logout">Log Out</string>
+    <string name="timetable">Time Table</string>
+    <string name="fall">Fall</string>
+    <string name="winter">Winter</string>
+    <string name="summer">Summer</string>
+    <string name="time_table">Time Table</string>
+    <string name="add_completed_course">Add Completed Course</string>
+    <string name="welcome_student">Welcome,</string>
+    <string name="welcome_st">Welcome</string>
 </resources>
