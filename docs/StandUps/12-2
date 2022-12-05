@@ -9,11 +9,11 @@ Any impediments or stumbling blocks?
 
 Name: Casper
 What have you done since yesterday?
-
+  -Refactored login code to conform to MVP
 What are you planning on doing today?
-
+  -Continuing this work
 Any impediments or stumbling blocks?
-
+  -Extracting data from the database value listener
 
 
 Name: Clare
