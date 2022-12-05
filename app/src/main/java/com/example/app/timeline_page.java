@@ -77,6 +77,12 @@ public class timeline_page extends AppCompatActivity {
         cleaner();
 
         //Database handling
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        LinearLayoutManager llm2 = new LinearLayoutManager(this);
+        LinearLayoutManager llm3 = new LinearLayoutManager(this);
+
+
+
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
         database.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -107,7 +113,24 @@ public class timeline_page extends AppCompatActivity {
 
                     }
                 }
+                
+                recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
 
+                myAdapter = new comp_timetable_adapter(fall);
+                recycler_view1.setAdapter(myAdapter);
+                recycler_view1.setLayoutManager(llm);
+
+                recycler_view2 = (RecyclerView) findViewById(R.id.comp_timetable2_aa);
+
+                myAdapter2 = new comp_timetable_adapter(winter);
+                recycler_view2.setAdapter(myAdapter2);
+                recycler_view2.setLayoutManager(llm2);
+
+                recycler_view3 = (RecyclerView) findViewById(R.id.comp_timetable3_aa);
+                myAdapter3 = new comp_timetable_adapter(summer);
+
+                recycler_view3.setAdapter(myAdapter3);
+                recycler_view3.setLayoutManager(llm3);
             }
 
             @Override
@@ -117,23 +140,6 @@ public class timeline_page extends AppCompatActivity {
         });
 
 
-        recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        myAdapter = new comp_timetable_adapter(fall);
-        recycler_view1.setAdapter(myAdapter);
-        recycler_view1.setLayoutManager(llm);
-
-        recycler_view2 = (RecyclerView) findViewById(R.id.comp_timetable2_aa);
-        LinearLayoutManager llm2 = new LinearLayoutManager(this);
-        myAdapter2 = new comp_timetable_adapter(winter);
-        recycler_view2.setAdapter(myAdapter2);
-        recycler_view2.setLayoutManager(llm2);
-
-        recycler_view3 = (RecyclerView) findViewById(R.id.comp_timetable3_aa);
-        LinearLayoutManager llm3 = new LinearLayoutManager(this);
-        myAdapter3 = new comp_timetable_adapter(summer);
-        recycler_view3.setAdapter(myAdapter3);
-        recycler_view3.setLayoutManager(llm3);
 
     }
 
