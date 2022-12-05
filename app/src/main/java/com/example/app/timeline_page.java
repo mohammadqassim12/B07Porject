@@ -113,7 +113,7 @@ public class timeline_page extends AppCompatActivity {
 
                     }
                 }
-                
+
                 recycler_view1 = (RecyclerView) findViewById(R.id.comp_timetable_aa);
 
                 myAdapter = new comp_timetable_adapter(fall);

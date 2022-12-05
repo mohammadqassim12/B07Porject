@@ -43,4 +43,7 @@
     <string name="winter">Winter</string>
     <string name="summer">Summer</string>
     <string name="time_table">Time Table</string>
+    <string name="add_completed_course">Add Completed Course</string>
+    <string name="welcome_student">Welcome,</string>
+    <string name="welcome_st">Welcome</string>
 </resources>
