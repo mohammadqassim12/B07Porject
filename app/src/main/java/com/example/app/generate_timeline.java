@@ -133,17 +133,21 @@ public class generate_timeline extends AppCompatActivity {
                                         message.show();
                                         x[0] = -1; //course has already been completed by student, notify them and end
 
-                                    }else {
-                                        if (snapshot.child("User Database").child(Student_id).child("Completed Courses").exists()) {
-                                            for (DataSnapshot snap : snapshot.child("Courses").child(course).child("prerequisites").getChildren()) {
-                                                if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").child(snap.getValue().toString()).exists()) {
-                                                    Log.d("test3", "missing pre");
-                                                    Snackbar message = Snackbar.make(view, "Prerequisite of one or more of the input courses is not taken", 5000);
-                                                    message.show();
-                                                    x[0] = -1;
-                                                    break; //prerequisite was found that student has not completed, notify them and end
-                                                }
+                                    }else if (snapshot.child("User Database").child(Student_id).child("Completed Courses").exists()) {
+                                        for (DataSnapshot snap : snapshot.child("Courses").child(course).child("prerequisites").getChildren()) {
+                                            if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").child(snap.getValue().toString()).exists()) {
+                                                Log.d("test3", "missing pre");
+                                                Snackbar message = Snackbar.make(view, "Prerequisite of one or more of the input courses is not taken", 5000);
+                                                message.show();
+                                                x[0] = -1;
+                                                break; //prerequisite was found that student has not completed, notify them and end
                                             }
+                                        }
+                                    }else if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").exists()) {
+                                        if(!(snapshot.child("Courses").child(course).child("prerequisites").getValue() == "")) {
+                                            Snackbar message = Snackbar.make(view, "Prerequisite of one or more of the input courses is not taken", 5000);
+                                            message.show();
+                                            x[0] = -1;
                                         }
                                     }
                                 }
