@@ -19,6 +19,8 @@ Any impediments or stumbling blocks?
 Name: Clare
 What have you done since yesterday?
   - updated generate_timeline to properly reject courses, using code from Mohammed and Arina
+  - limited course inputs to those with prerequisites already in student's database
+  - removed delete button as it conflicted with code
 
 What are you planning on doing today?
   - on standby (nothing at the moment)

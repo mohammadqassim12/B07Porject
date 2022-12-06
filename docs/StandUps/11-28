@@ -19,10 +19,13 @@ Any impediments or stumbling blocks?
 	-Continuing to have nullPointer errors regarding Firebase keys not existing
 
 
-Name: Claire
+Name: Clare
 What have you done since yesterday?
+	- delete button added to app, may delete in future if not necessary to user story
+	- limitations added to recyclerview to stop course inputs that aren't in database or already in student's database
 
 What are you planning on doing today?
+	- complete student homepage
 
 Any impediments or stumbling blocks?
 
