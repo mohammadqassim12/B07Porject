@@ -123,7 +123,7 @@ public class edit_item extends AppCompatActivity {
 
                 Log.d("CHECKED1", String.valueOf(checked));
                 if(!courseCodeInput.isEmpty()) {
-                    courses.child("Courses").addValueEventListener(new ValueEventListener() {
+                    courses.child("Courses").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {
@@ -183,7 +183,7 @@ public class edit_item extends AppCompatActivity {
 //                    Log.d("here", courses.child("Courses").child(courseCode).getKey());
                     courses.child("Courses").child(courseCode).removeValue();
 
-                    courses.child("User Database").addValueEventListener(new ValueEventListener() {
+                    courses.child("User Database").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange( DataSnapshot dataSnapshot) {
                             for(DataSnapshot childSnapshot: dataSnapshot.getChildren()) {

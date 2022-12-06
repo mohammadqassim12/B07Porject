@@ -145,7 +145,7 @@ public class generate_timeline extends AppCompatActivity {
                                             }
                                         }
                                     }else if (!snapshot.child("User Database").child(Student_id).child("Completed Courses").exists()) {
-                                        if(!(snapshot.child("Courses").child(course).child("prerequisites").getValue() == "")) {
+                                        if(!(snapshot.child("Courses").child(course).child("prerequisites").child("0").getValue().toString().isEmpty())) {
                                             Snackbar message = Snackbar.make(view, "Prerequisite of one or more of the input courses is not taken", 5000);
                                             message.show();
                                             x[0] = -1;
