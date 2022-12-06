@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.app.Login_Pkg.login;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,6 +32,7 @@ public class admin_home extends AppCompatActivity {
     ArrayList<String> courses = new ArrayList<String>();
     TextView createCourseButton;
     Button deleteButton;
+    private TextView logoutClick;
     int i = 0;
 
     @Override
@@ -83,6 +85,14 @@ public class admin_home extends AppCompatActivity {
                 Intent intent = new Intent(admin_home.this, admin_create_course.class);
                 intent.putExtra("courses", courses);
                 admin_home.this.startActivity(intent);
+            }
+        });
+
+        logoutClick = (TextView) findViewById(R.id.logout);
+        logoutClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(admin_home.this, login.class));
             }
         });
 

@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:text="Prerequisites (separated by commas)"
+                android:text="Prerequisites(separate by comma, NO space)"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toTopOf="@+id/prerequisitesInput"
                 app:layout_constraintEnd_toEndOf="parent"
