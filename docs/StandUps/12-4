@@ -1,9 +1,15 @@
 Name: Arina
 What have you done since yesterday?
+  - implemented 3 recycle views and an adapter to display the time line
+  - worked on creating dividers to make the table look more like a table than a list
+  - with the help of my teammates, I was able to add courses to each column (array list/ recycler views) respective to when the courses were offered
 
 What are you planning on doing today?
+- debug code and look for edge cases
 
 Any impediments or stumbling blocks?
+- the list of courses were not showing up, I realized the issue was with the padding and alignment of the textview and with the help of my teammate Mohammad I was able to fix the issue
+
 
 
 
