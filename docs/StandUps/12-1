@@ -27,11 +27,14 @@ Any impediments or stumbling blocks?
 
 Name: Mohammed
 What have you done since yesterday?
+	- Agreed with Arina on the edge cases that my fragment has to consider from the user and and agreed on the expectations that are required to proceed to the next fragment.
 
 What are you planning on doing today?
+	Start working on the java file behind this fragment to take in the user input and compare it with the database
+	Reach out to a colleague of mine to work on the database and how to read efficiently and correctly from the database.
 
 Any impediments or stumbling blocks?
-
+	- A problem where the null character to string has been breaking my code so i had to implement a workaround for if null exists by checking if the length of a string is less than 1, which is the null character.
 
 
 Name: Rachel
