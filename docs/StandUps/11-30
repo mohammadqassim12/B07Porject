@@ -30,12 +30,13 @@ Any impediments or stumbling blocks?
 
 Name: Mohammed
 What have you done since yesterday?
-	- designed a generic 
+	- designed a generic UI that includes the buttons and text fields so that I can simply take down the users input for the courses that the user would like for the timetable and a button to proceed "OnClick"
 
 What are you planning on doing today?
+	- Agree with Arina on what she expects me to pass to her to the next fragment and what should i check from the user to minimize breakage of code.
 
 Any impediments or stumbling blocks?
-
+	- Simple UI implementations which did not make me run into fatal problems, just configurations issues that have been easily fixed.
 
 
 Name: Rachel
